@@ -1,0 +1,207 @@
+/**
+ * CORE Manifest — portable, human-readable, machine-readable representation
+ * of a CORE Profile. Independent of the CORE website.
+ */
+
+import { formatSizeMb } from "./utils"
+import type { CORESavedProfile } from "@/context/ProfileContext"
+
+export const MANIFEST_SCHEMA_VERSION = "1.0"
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export interface ManifestResource {
+  id: number
+  name: string
+  slug: string
+  category: string
+  categoryName: string
+  source: string | null
+  acquisitionUrl: string | null
+  acquisitionMethod: string | null
+  estimatedSizeMb: number | null
+  estimatedSizeFormatted: string
+  license?: string | null
+  offlineCapability: string
+  resourceType: string
+}
+
+export interface ManifestPack {
+  id: number
+  name: string
+  slug: string
+  estimatedSizeMb: number | null
+  estimatedSizeFormatted: string
+}
+
+export interface CORManifest {
+  coreVersion: string
+  name: string
+  slug: string
+  description: string
+  purpose: string
+  author: string
+  version: string
+  targetPlatforms: string[]
+  resources: ManifestResource[]
+  packs: ManifestPack[]
+  estimatedStorageMb: number
+  estimatedStorageFormatted: string
+  createdAt: string
+  updatedAt: string
+  exportedAt: string
+}
+
+// ─── Generate ────────────────────────────────────────────────────────────────
+
+export function generateManifest(profile: CORESavedProfile): CORManifest {
+  return {
+    coreVersion: MANIFEST_SCHEMA_VERSION,
+    name: profile.name,
+    slug: profile.slug,
+    description: profile.description,
+    purpose: profile.purpose,
+    author: profile.author,
+    version: profile.version,
+    targetPlatforms: profile.targetPlatforms,
+    resources: profile.selectedResources.map(r => ({
+      id: r.id,
+      name: r.name,
+      slug: r.slug,
+      category: r.category,
+      categoryName: r.categoryName,
+      source: r.sourceOrganization,
+      acquisitionUrl: r.acquisitionUrl,
+      acquisitionMethod: r.acquisitionMethod,
+      estimatedSizeMb: r.approximateSizeMb,
+      estimatedSizeFormatted: formatSizeMb(r.approximateSizeMb ?? 0),
+      offlineCapability: r.offlineCapability,
+      resourceType: r.resourceType,
+    })),
+    packs: profile.selectedPacks.map(p => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      estimatedSizeMb: p.approximateTotalSizeMb,
+      estimatedSizeFormatted: formatSizeMb(p.approximateTotalSizeMb ?? 0),
+    })),
+    estimatedStorageMb: profile.estimatedStorageMb,
+    estimatedStorageFormatted: formatSizeMb(profile.estimatedStorageMb),
+    createdAt: profile.createdAt,
+    updatedAt: profile.updatedAt,
+    exportedAt: new Date().toISOString(),
+  }
+}
+
+// ─── Export ──────────────────────────────────────────────────────────────────
+
+export function downloadManifestJson(profile: CORESavedProfile) {
+  const manifest = generateManifest(profile)
+  const json = JSON.stringify(manifest, null, 2)
+  const blob = new Blob([json], { type: "application/json" })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = `${profile.slug || "core-manifest"}.core.json`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+export function downloadHumanReadable(profile: CORESavedProfile) {
+  const manifest = generateManifest(profile)
+  const lines: string[] = [
+    `CORE MANIFEST`,
+    `═══════════════════════════════════════════════════════`,
+    `Name:          ${manifest.name}`,
+    `Version:       ${manifest.version}`,
+    `Author:        ${manifest.author || "Anonymous"}`,
+    `Purpose:       ${manifest.purpose}`,
+    `Description:   ${manifest.description}`,
+    `Platforms:     ${manifest.targetPlatforms.join(", ") || "Any"}`,
+    `Created:       ${new Date(manifest.createdAt).toLocaleString()}`,
+    `Updated:       ${new Date(manifest.updatedAt).toLocaleString()}`,
+    `Exported:      ${new Date(manifest.exportedAt).toLocaleString()}`,
+    ``,
+    `STORAGE ESTIMATE`,
+    `───────────────────────────────────────────────────────`,
+    `Total:         ${manifest.estimatedStorageFormatted}`,
+    `Resources:     ${manifest.resources.length}`,
+    `Packs:         ${manifest.packs.length}`,
+    ``,
+    `RESOURCES`,
+    `───────────────────────────────────────────────────────`,
+    ...manifest.resources.map((r, i) => [
+      `${i + 1}. ${r.name}`,
+      `   Category:   ${r.categoryName}`,
+      r.source ? `   Source:     ${r.source}` : "",
+      r.acquisitionUrl ? `   Acquire:    ${r.acquisitionUrl}` : "",
+      r.acquisitionMethod ? `   Method:     ${r.acquisitionMethod}` : "",
+      `   Size:       ${r.estimatedSizeFormatted}`,
+      `   Offline:    ${r.offlineCapability}`,
+      ``,
+    ].filter(Boolean).join("\n")),
+    manifest.packs.length > 0 ? [
+      `PACKS`,
+      `───────────────────────────────────────────────────────`,
+      ...manifest.packs.map((p, i) => `${i + 1}. ${p.name} (${p.estimatedSizeFormatted})`),
+      ``,
+    ].join("\n") : "",
+    `───────────────────────────────────────────────────────`,
+    `Generated by Project CORE — https://project-core.replit.app`,
+    `Schema Version: ${manifest.coreVersion}`,
+  ].filter(s => s !== "")
+
+  const text = lines.join("\n")
+  const blob = new Blob([text], { type: "text/plain" })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = `${profile.slug || "core"}.txt`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+// ─── Parse / Import ───────────────────────────────────────────────────────────
+
+export interface ManifestParseResult {
+  ok: boolean
+  manifest?: CORManifest
+  error?: string
+}
+
+export function parseManifestJson(text: string): ManifestParseResult {
+  try {
+    const data = JSON.parse(text)
+    // Basic validation
+    if (typeof data !== "object" || data === null) {
+      return { ok: false, error: "Invalid JSON — expected an object." }
+    }
+    if (!data.name || typeof data.name !== "string") {
+      return { ok: false, error: 'Missing required field: "name".' }
+    }
+    if (!Array.isArray(data.resources)) {
+      return { ok: false, error: 'Missing required field: "resources" (must be an array).' }
+    }
+    // Accept the manifest with defaults for missing optional fields
+    const manifest: CORManifest = {
+      coreVersion: data.coreVersion ?? "1.0",
+      name: data.name,
+      slug: data.slug ?? data.name.toLowerCase().replace(/\s+/g, "-"),
+      description: data.description ?? "",
+      purpose: data.purpose ?? "general",
+      author: data.author ?? "",
+      version: data.version ?? "1.0",
+      targetPlatforms: Array.isArray(data.targetPlatforms) ? data.targetPlatforms : [],
+      resources: data.resources,
+      packs: Array.isArray(data.packs) ? data.packs : [],
+      estimatedStorageMb: data.estimatedStorageMb ?? 0,
+      estimatedStorageFormatted: data.estimatedStorageFormatted ?? "Unknown",
+      createdAt: data.createdAt ?? new Date().toISOString(),
+      updatedAt: data.updatedAt ?? new Date().toISOString(),
+      exportedAt: data.exportedAt ?? new Date().toISOString(),
+    }
+    return { ok: true, manifest }
+  } catch {
+    return { ok: false, error: "Could not parse JSON. Make sure this is a valid .core.json file." }
+  }
+}

@@ -2,18 +2,20 @@ import { Link, useLocation } from "wouter"
 import { Button } from "@/components/ui/button"
 import coreLogo from "@assets/CORE_LOGO_1786303177424.png"
 import { useCORE } from "@/context/CoreContext"
+import { useProfiles } from "@/context/ProfileContext"
 import { formatSizeMb } from "@/lib/utils"
-import { HardDrive } from "lucide-react"
+import { HardDrive, Layers } from "lucide-react"
 
 export function Navbar() {
   const [location] = useLocation()
   const { items, totalSizeMb } = useCORE()
+  const { profiles } = useProfiles()
 
   const links = [
     { href: "/atlas", label: "Atlas" },
     { href: "/packs", label: "Packs" },
     { href: "/builder", label: "Builder" },
-    { href: "/profiles", label: "Profiles" },
+    { href: "/my-cores", label: "My COREs", count: profiles.length },
     { href: "/community", label: "Community" },
   ]
 
@@ -30,23 +32,33 @@ export function Navbar() {
               </span>
             </div>
           </Link>
-          
+
           <nav className="hidden md:flex items-center gap-6 ml-6 border-l border-border pl-6">
             {links.map((link) => (
-              <Link 
-                key={link.href} 
+              <Link
+                key={link.href}
                 href={link.href}
-                className={`text-sm font-mono transition-colors hover:text-primary ${
+                className={`text-sm font-mono transition-colors hover:text-primary flex items-center gap-1.5 ${
                   location.startsWith(link.href) ? "text-primary font-bold" : "text-muted-foreground"
                 }`}
               >
                 {link.label}
+                {link.count !== undefined && link.count > 0 && (
+                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-[2px] ${
+                    location.startsWith(link.href)
+                      ? "bg-primary/20 text-primary"
+                      : "bg-muted text-muted-foreground"
+                  }`}>
+                    {link.count}
+                  </span>
+                )}
               </Link>
             ))}
           </nav>
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Active cart indicator */}
           {items.length > 0 && (
             <Link href="/builder">
               <div className="flex items-center gap-2 px-3 py-1.5 border border-primary/30 bg-primary/10 rounded-sm cursor-pointer hover:border-primary/60 transition-colors">
@@ -56,6 +68,17 @@ export function Navbar() {
               </div>
             </Link>
           )}
+
+          {/* Saved COREs indicator */}
+          {profiles.length > 0 && (
+            <Link href="/my-cores">
+              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 border border-border bg-card rounded-sm cursor-pointer hover:border-primary/40 transition-colors">
+                <Layers className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="font-mono text-xs text-muted-foreground">{profiles.length}</span>
+              </div>
+            </Link>
+          )}
+
           <Link href="/builder" className="inline-block">
             <Button className="font-mono rounded-sm text-xs font-bold uppercase tracking-wider">
               Build Your CORE

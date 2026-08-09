@@ -1,0 +1,274 @@
+PROJECT CORE — STEP 3: CORE PROFILES, SAVE & MANIFEST
+
+The CORE Atlas, Builder, and Resource Acquisition workflow is now functional.
+
+The next objective is to allow users to turn their selected resources into a persistent, portable CORE Profile.
+
+Do not redesign the existing UI, branding, colour palette, logo, layout, or visual language.
+
+==================================================
+CORE PROFILE
+==================================================
+
+Create a CORE Profile representing a user's custom-built offline environment.
+
+A CORE Profile should contain:
+
+- id
+- name
+- slug
+- description
+- purpose
+- author (optional for now)
+- version
+- selectedResources
+- selectedPacks
+- estimatedStorage
+- targetPlatforms
+- createdAt
+- updatedAt
+
+A CORE Profile is NOT the actual files/resources.
+
+It is the user's portable definition of what their CORE contains.
+
+==================================================
+SAVE MY CORE
+==================================================
+
+Add a clear "SAVE MY CORE" action to the Builder.
+
+When selected, allow the user to enter:
+
+CORE Name
+CORE Description
+Purpose
+Target Platform(s)
+
+Then save the current Builder configuration as a CORE Profile.
+
+Do not require authentication yet.
+
+Use local/browser persistence for saved CORE Profiles for now.
+
+The user must be able to:
+
+- Save a CORE
+- View saved COREs
+- Open a saved CORE
+- Edit a saved CORE
+- Delete a saved CORE
+- Duplicate a saved CORE
+- Update the version
+
+==================================================
+CORE PROFILE PAGE
+==================================================
+
+Create a polished CORE Profile view.
+
+Display:
+
+CORE NAME
+Description
+Purpose
+Version
+Created
+Last Updated
+
+RESOURCE SUMMARY
+Number of resources
+Number of packs
+Estimated storage
+
+CATEGORIES
+Show the categories represented in the CORE.
+
+RESOURCE LIST
+Show all selected resources.
+
+Each resource should link back to its Resource Detail page and acquisition information.
+
+Provide actions:
+
+EDIT CORE
+DUPLICATE CORE
+EXPORT MANIFEST
+DELETE CORE
+
+==================================================
+CORE MANIFEST
+==================================================
+
+Implement the first version of the CORE Manifest.
+
+The Manifest is a portable machine-readable representation of a CORE Profile.
+
+Use JSON initially.
+
+Example structure:
+
+{
+  "coreVersion": "1.0",
+  "name": "Example CORE",
+  "description": "My personal offline environment",
+  "purpose": "Knowledge and preparedness",
+  "version": "1.0",
+  "targetPlatforms": [
+    "Windows",
+    "Linux"
+  ],
+  "resources": [
+    {
+      "id": "...",
+      "name": "...",
+      "source": "...",
+      "version": "...",
+      "estimatedSize": "..."
+    }
+  ],
+  "packs": [],
+  "estimatedStorage": "...",
+  "createdAt": "...",
+  "updatedAt": "..."
+}
+
+The exact implementation may improve this structure, but keep the Manifest:
+
+- Portable
+- Human-readable
+- Machine-readable
+- Independent of the CORE website
+- Versioned
+- Extensible
+
+==================================================
+EXPORT
+==================================================
+
+Allow users to export their CORE Manifest as a downloadable JSON file.
+
+Also provide an easy-to-read human version of the CORE Profile that users could save or print.
+
+The user should be able to take their Manifest outside the CORE website.
+
+This is important to the No Lock-In principle.
+
+==================================================
+SHARING
+==================================================
+
+Create the foundation for sharing CORE Profiles.
+
+For now, implement a shareable/exportable CORE Profile representation.
+
+Do NOT build a full social network.
+
+Do NOT require user accounts.
+
+Do NOT build comments, followers, likes, messaging, etc.
+
+The eventual goal is:
+
+User A builds CORE
+→ exports/shares CORE Profile
+→ User B discovers it
+→ User B can import/fork it
+→ User B modifies it
+→ User B creates their own CORE
+
+==================================================
+IMPORT / FORK FOUNDATION
+==================================================
+
+Add the architectural foundation for importing a CORE Manifest.
+
+A user should eventually be able to:
+
+IMPORT CORE MANIFEST
+→ Review resources
+→ Review storage requirements
+→ Customize
+→ Save as their own CORE
+
+For this phase, implement basic JSON manifest import and validation if practical.
+
+Do not overbuild this.
+
+==================================================
+IMPORTANT PRINCIPLES
+==================================================
+
+The CORE Profile is a blueprint for a user's Personal State of Capability.
+
+CORE does not own the user's CORE.
+
+The user owns their configuration.
+
+The Manifest must remain portable outside the CORE website.
+
+Do not create unnecessary vendor lock-in.
+
+==================================================
+WORKFLOW AFTER THIS PHASE
+==================================================
+
+The complete workflow should now be:
+
+DEFINE
+→ CURATE
+→ BUILD
+→ ACQUIRE
+→ SAVE
+→ EXPORT
+→ SHARE
+
+A user should be able to build a real CORE configuration from the Atlas and leave the website with a portable definition of that CORE.
+
+==================================================
+DO NOT BUILD YET
+==================================================
+
+Do not implement:
+
+- User authentication
+- Cloud synchronization
+- Automated downloads
+- USB flashing
+- Automated deployment
+- Full community/social features
+- Payments
+- Marketplace
+- AI recommendations
+
+Those belong to later phases.
+
+==================================================
+TESTING
+==================================================
+
+Test this complete workflow:
+
+Atlas
+→ Resource Detail
+→ Add to My CORE
+→ Builder
+→ Save My CORE
+→ Open CORE Profile
+→ Edit
+→ Export Manifest
+→ Delete/restore as appropriate
+→ Import Manifest
+→ Create a new CORE from the imported configuration
+
+Ensure browser persistence works.
+
+Ensure exported JSON is valid.
+
+Ensure no existing Atlas, Builder, Resource Acquisition, or branding functionality is broken.
+
+Commit with:
+
+feat: add CORE profiles and manifest system
+
+Then push the commit to the connected GitHub repository.

@@ -12,6 +12,7 @@ import {
 } from 'wouter';
 import { Layout } from '@/components/Layout';
 import { CoreProvider } from '@/context/CoreContext';
+import { ProfileProvider } from '@/context/ProfileContext';
 
 // Pages
 import Home from '@/pages/Home';
@@ -23,6 +24,8 @@ import Builder from '@/pages/Builder';
 import Profiles from '@/pages/Profiles';
 import ProfileDetail from '@/pages/ProfileDetail';
 import Community from '@/pages/Community';
+import MyCOREs from '@/pages/MyCOREs';
+import MyCOREDetail from '@/pages/MyCOREDetail';
 
 const queryClient = new QueryClient();
 
@@ -37,6 +40,8 @@ function Router() {
           <Route path="/packs" component={Packs} />
           <Route path="/packs/:id" component={PackDetail} />
           <Route path="/builder" component={Builder} />
+          <Route path="/my-cores" component={MyCOREs} />
+          <Route path="/my-cores/:id" component={MyCOREDetail} />
           <Route path="/profiles" component={Profiles} />
           <Route path="/profiles/:id" component={ProfileDetail} />
           <Route path="/community" component={Community} />
@@ -56,12 +61,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <CoreProvider>
-        <TooltipProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-            <Router />
-          </WouterRouter>
-          <Toaster />
-        </TooltipProvider>
+        <ProfileProvider>
+          <TooltipProvider>
+            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+              <Router />
+            </WouterRouter>
+            <Toaster />
+          </TooltipProvider>
+        </ProfileProvider>
       </CoreProvider>
     </QueryClientProvider>
   );
