@@ -1,0 +1,9 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "NL7UZk6JwrxGPZzszAlOc"
+uri = "file://project-core.zip"
+type = "unspecified"
+title = "Project CORE — Source Code"
+description = "Full project source. Excludes node_modules, dist, and git history."
