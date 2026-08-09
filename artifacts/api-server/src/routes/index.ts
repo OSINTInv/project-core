@@ -6,6 +6,7 @@ import profilesRouter from "./profiles";
 import manifestsRouter from "./manifests";
 import communityRouter from "./community";
 import statsRouter from "./stats";
+import downloadRouter from "./download";
 
 const router: IRouter = Router();
 
@@ -16,5 +17,6 @@ router.use(profilesRouter);
 router.use(manifestsRouter);
 router.use(communityRouter);
 router.use(statsRouter);
+router.use(downloadRouter);
 
 export default router;
