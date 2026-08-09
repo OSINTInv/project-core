@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Project CORE"
+description = "Project CORE — Custom Offline Resource Environment. A framework web app for building, curating, and sharing personal offline environments. Includes a resource Atlas, curated Packs, an interactive CORE Builder, Profiles with manifest generation, and a community section for sharing builds."
+version = "1.0.0"
+id = "artifacts/project-core"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21910
+
+[services.development]
+run = "pnpm --filter @workspace/project-core run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/project-core", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/project-core/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21910"
+BASE_PATH = "/"

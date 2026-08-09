@@ -1,0 +1,995 @@
+# PROJECT CORE — FOUNDING BUILD SPECIFICATION
+
+## Custom Offline Resource Environment
+
+### Your Personal Offline World Environment.
+
+Build the first public web-based reference implementation of **Project CORE**, an open framework for creating, curating, maintaining, deploying, and sharing personal offline environments.
+
+This is not simply an offline-resource directory.
+
+It is not a Linux distribution.
+
+It is not a USB builder.
+
+It is not a survival website.
+
+It is not an OSINT platform.
+
+**CORE is a framework that helps people build their own Personal State of Capability — the information, knowledge, software, tools, and resources they can access and use regardless of whether an internet connection exists.**
+
+---
+
+# 1. CORE IDENTITY
+
+## Name
+
+**PROJECT CORE**
+
+## Acronym
+
+**C.O.R.E. — Custom Offline Resource Environment**
+
+## Positioning
+
+**Your Personal Offline World Environment.**
+
+## Mission
+
+**Preserve information. Keep the unconnected connected.**
+
+## North Star
+
+> **We believe useful information and capability shouldn't disappear when the connection does.**
+
+## Core promise
+
+> **No internet? No problem.**
+
+---
+
+# 2. CORE PHILOSOPHY
+
+CORE exists because connectivity is a privilege we do not control access to.
+
+Internet access can be unreliable, unavailable, restricted, interrupted, or destroyed. When that connection disappears, the information, knowledge, tools, and resources people depend on shouldn't have to disappear with it.
+
+CORE gives people the ability to build, maintain, and carry their own offline environments — tailored to their needs, circumstances, hardware, and resources.
+
+Choose what you need.
+
+Build your environment.
+
+Take it with you.
+
+Use it anywhere.
+
+Maintain it when connected.
+
+Share it with others.
+
+CORE does not prescribe what someone's offline world should contain.
+
+**The user decides.**
+
+The internet is incredibly powerful, but users do not control the infrastructure that provides access to it.
+
+CORE exists to provide resilience beyond that connection.
+
+---
+
+# 3. CORE PRINCIPLES
+
+These principles are fundamental product requirements. Future features should be evaluated against them.
+
+### 01 — INFORMATION FOR ALL
+
+Information and knowledge should be accessible to everyone regardless of connectivity, location, circumstance, or technical ability.
+
+### 02 — OFFLINE FIRST
+
+CORE environments must remain useful without an internet connection.
+
+### 03 — USER OWNED
+
+Users control their environment, resources, configuration, and data.
+
+### 04 — BUILD YOUR OWN
+
+CORE does not prescribe one universal environment. Users build what they need.
+
+### 05 — OPEN & PORTABLE
+
+Favor open standards, interoperable formats, open-source software, and hardware independence wherever practical.
+
+### 06 — VERIFIABLE
+
+Resources should have identifiable sources, versions, metadata, and, where practical, cryptographic verification.
+
+### 07 — RESILIENT
+
+CORE should remain useful when individual resources, services, providers, or connections disappear.
+
+### 08 — COMMUNITY BUILT
+
+People should be able to share, fork, improve, and redistribute CORE configurations.
+
+### 09 — ACCESSIBLE
+
+CORE should be understandable and usable by people who are not technical experts.
+
+### 10 — NO LOCK-IN
+
+CORE should never become another dependency users cannot escape.
+
+Users should be able to take their environment, configuration, manifests, and resources with them.
+
+---
+
+# 4. WHO CORE IS FOR
+
+CORE is for:
+
+> **Anyone who relies on a connection to access information they need — and wants that information available whether a connection exists or not.**
+
+Examples include:
+
+* Travellers
+* Students
+* Developers
+* Technicians
+* Field workers
+* Researchers
+* Educators
+* Remote workers
+* Outdoor enthusiasts
+* People living in areas with unreliable connectivity
+* Preparedness-minded users
+* Families
+* Organizations
+* Remote communities
+* Humanitarian organizations
+* People operating in disconnected environments
+
+A CORE might contain:
+
+* Vehicle manuals
+* Repair manuals
+* Maps
+* Medical references
+* Educational resources
+* Technical documentation
+* Software
+* Operating systems
+* Local AI
+* Emergency information
+* Scientific references
+* Agricultural information
+* Offline media
+* Communication references
+* Recovery tools
+* Anything else the user considers important to their Personal State of Capability.
+
+CORE is not restricted to one profession, device, operating system, or use case.
+
+---
+
+# 5. WHAT IS A CORE?
+
+A **CORE** is a custom-built offline environment where the user curates a repository based on their own informational and capability needs.
+
+A CORE is a personalized collection of:
+
+* Information
+* Knowledge
+* Software
+* Documentation
+* Tools
+* Maps
+* Media
+* AI resources
+* Reference material
+* Other offline-capable resources
+
+organized into an environment that the user owns and controls.
+
+A CORE could exist on:
+
+* USB
+* Portable SSD
+* Laptop
+* Desktop
+* Phone
+* Tablet
+* Local server
+* Local network
+
+The hardware is the container.
+
+**The CORE is the environment.**
+
+There is no single correct CORE.
+
+**Your CORE should reflect your needs.**
+
+---
+
+# 6. PERSONAL STATE OF CAPABILITY
+
+Introduce the CORE concept:
+
+## PSC — Personal State of Capability
+
+A user's **Personal State of Capability** represents the information, knowledge, tools, software, and resources they can access and use independently of an internet connection.
+
+CORE helps users build and maintain their PSC.
+
+The important distinction is:
+
+> **Connectivity gives you access. CORE gives you capability.**
+
+A CORE should help users identify what they can still access when disconnected — and eventually identify gaps in that capability.
+
+Do not overbuild PSC functionality in V1. Establish it as a foundational concept and prepare the architecture for future capability scoring/gap analysis.
+
+---
+
+# 7. THE CORE LIFECYCLE
+
+The fundamental CORE lifecycle is:
+
+# DEFINE → CURATE → BUILD → DEPLOY → MAINTAIN → SHARE
+
+### DEFINE
+
+Define your needs.
+
+What information, knowledge, tools, software, and resources do you need when connectivity isn't available?
+
+### CURATE
+
+Curate your stack.
+
+Discover resources through CORE and select what belongs in your environment.
+
+### BUILD
+
+Build your offline repository.
+
+Organize selected resources into a cohesive environment based on needs, storage, hardware, and capability.
+
+### DEPLOY
+
+Deploy your CORE to the device or hardware you choose.
+
+USB, SSD, laptop, phone, tablet, server, etc.
+
+### MAINTAIN
+
+Keep your capability current.
+
+Update resources.
+
+Verify sources.
+
+Replace outdated information.
+
+Add resources.
+
+Remove resources.
+
+### SHARE
+
+Share your CORE.
+
+Publish the configuration.
+
+Allow others to discover, fork, customize, and improve it.
+
+---
+
+# 8. CORE PRODUCT ARCHITECTURE
+
+The web application should be organized around these major components.
+
+## CORE ATLAS
+
+The resource discovery and catalogue layer.
+
+Users should be able to browse and search for offline-capable resources.
+
+Initial categories should include:
+
+* Knowledge
+* Documentation
+* Software
+* Operating Systems
+* Maps
+* Technical
+* Recovery
+* Education
+* Health & First Aid
+* Emergency
+* Local AI
+* Communications
+* Media
+* Privacy
+* Utilities
+* Other
+
+Do not make the category structure rigid. It should be extensible.
+
+---
+
+## CORE BUILDER
+
+The central interactive feature.
+
+Users should be able to define their needs and build a custom CORE.
+
+The Builder should eventually consider:
+
+* Intended purpose
+* User type
+* Storage capacity
+* Device/platform
+* Operating system
+* Desired categories
+* Selected resources
+* Packs
+* Dependencies
+* Available storage
+* Optional resources
+
+The Builder should produce a recommended CORE configuration.
+
+The user remains in control and can modify everything.
+
+---
+
+## CORE PACKS
+
+Curated collections of resources.
+
+Examples:
+
+### CORE Field
+
+Technical and field resources.
+
+### CORE Knowledge
+
+Offline encyclopedias, dictionaries, reference material and educational resources.
+
+### CORE Preparedness
+
+Emergency, first aid, maps, communications, repair, food, water, shelter, etc.
+
+### CORE Technician
+
+Technical manuals, diagnostics, documentation, utilities and recovery tools.
+
+### CORE AI
+
+Local AI models, runtimes, documentation and supporting tools.
+
+### CORE Travel
+
+Maps, language resources, travel information, medical references, etc.
+
+Packs are starting points.
+
+Users should be able to customize them.
+
+---
+
+## CORE PROFILES
+
+A user's saved CORE configuration.
+
+Example:
+
+**Josh's Preparedness CORE**
+
+512 GB
+
+Preparedness + Vehicle + Outdoors + AI
+
+147 resources
+
+83 GB currently allocated
+
+A profile should eventually be exportable and shareable.
+
+Users should be able to create versions of their CORE.
+
+---
+
+## CORE MANIFEST
+
+The machine-readable definition of a CORE.
+
+The Manifest is the technical glue connecting the ecosystem.
+
+It should eventually contain information such as:
+
+* CORE name
+* Description
+* Author
+* Version
+* Purpose
+* Target users
+* Hardware requirements
+* Storage requirements
+* Operating environment
+* Selected resources
+* Packs
+* Applications
+* Dependencies
+* Configuration
+* Verification data
+* Maintenance information
+
+Use a structured, portable format such as JSON or YAML.
+
+The exact schema should be designed cleanly and documented.
+
+The Manifest should not depend on the CORE website.
+
+---
+
+## CORE VERIFY
+
+A future verification layer for ensuring resources are:
+
+* From identifiable sources
+* Current
+* Versioned
+* Authentic where possible
+* Properly attributed
+* Safe to acquire
+
+Where practical, support:
+
+* Checksums
+* Hashes
+* Version numbers
+* Source URLs
+* Last verified dates
+* License information
+
+Do not attempt to independently host or redistribute resources that belong to third parties unless legally appropriate.
+
+CORE should primarily point users toward legitimate sources and explain how to obtain and integrate resources.
+
+---
+
+## CORE DEPLOY
+
+V1 should provide deployment guidance and manifests rather than attempting to automatically flash every type of hardware.
+
+Eventually this can evolve into automated deployment tooling.
+
+Potential deployment targets:
+
+* USB
+* SSD
+* Laptop
+* Desktop
+* Phone
+* Tablet
+* Local server
+
+Architecture should leave room for future deployment automation.
+
+---
+
+## CORE COMMUNITY
+
+The long-term ecosystem.
+
+Users should eventually be able to:
+
+* Publish CORE Profiles
+* Share CORE Packs
+* Fork existing COREs
+* Customize them
+* Publish modified versions
+* Discover community builds
+* Contribute resources
+* Improve existing builds
+
+The community should be built around **knowledge sharing**, not social-media engagement.
+
+Do not turn CORE into a generic social network.
+
+---
+
+# 9. CORE IS NOT THE CONTENT
+
+This is a fundamental distinction.
+
+> **CORE is not the content.**
+>
+> **CORE is the framework that lets you decide what content matters.**
+
+CORE should act as the discovery, organization, configuration, verification, and deployment layer.
+
+Where possible, resources should remain with their legitimate creators and providers.
+
+CORE should direct users to authoritative sources.
+
+---
+
+# 10. V1 PRODUCT SCOPE
+
+Keep V1 focused.
+
+The first public version should include:
+
+### Homepage
+
+Explain CORE, the philosophy, mission, lifecycle, and value proposition.
+
+### Atlas
+
+Searchable resource catalogue.
+
+### Resource Pages
+
+Each resource should include:
+
+* Name
+* Description
+* Category
+* Why it is useful
+* Official source
+* Platform
+* Offline capability
+* Approximate size where known
+* Version where relevant
+* License where relevant
+* Verification status
+* Last reviewed/verified date
+
+### Packs
+
+Curated collections.
+
+### Builder
+
+Allow users to select their needs, resources, packs, storage, and target environment.
+
+### Profiles
+
+Save and display a user's CORE configuration.
+
+### Manifest
+
+Generate/export a structured CORE Manifest.
+
+### Community
+
+Initial support can be lightweight — featured/shared CORE Profiles and Packs rather than a full social platform.
+
+---
+
+# 11. WHAT NOT TO BUILD IN V1
+
+Do NOT turn V1 into an enormous platform.
+
+Do not initially build:
+
+* Full automated USB flashing
+* Massive file hosting
+* Complex social networking
+* Cryptocurrency
+* Unnecessary accounts
+* AI chatbot gimmicks
+* Proprietary lock-in
+* Excessive analytics
+* Marketplace functionality
+* Complicated subscription systems
+
+CORE should first prove that people want to **build and share their own offline environments.**
+
+---
+
+# 12. VISUAL IDENTITY
+
+The attached CORE branding image is the primary visual reference.
+
+Use it as the authoritative creative direction.
+
+## Brand
+
+**PROJECT CORE**
+
+**Custom Offline Resource Environment**
+
+## Brand slogan
+
+**Your Personal Offline World Environment.**
+
+## Mission language
+
+**Preserve information. Keep the unconnected connected.**
+
+## Supporting language
+
+**Build your CORE. Curate your world. Take it with you.**
+
+---
+
+# 13. LOGO
+
+The logo should use the established CORE visual identity:
+
+A compass/navigation-inspired **C** symbol representing:
+
+* Orientation
+* Discovery
+* Capability
+* Portability
+* Resilience
+* Personal direction
+
+The primary wordmark is:
+
+**PROJECT CORE**
+
+with:
+
+**CUSTOM OFFLINE RESOURCE ENVIRONMENT**
+
+beneath or accompanying it where appropriate.
+
+Do not redesign the logo into a generic software logo.
+
+The supplied branding image is the visual authority.
+
+---
+
+# 14. COLOUR PALETTE
+
+Use the following colours consistently.
+
+### CORE Black
+
+`#0A0F14`
+
+Primary background.
+
+### Graphite
+
+`#1A232C`
+
+Panels, cards and structural elements.
+
+### Steel
+
+`#2E3A46`
+
+Borders, secondary surfaces and metallic accents.
+
+### CORE Blue
+
+`#0084FF`
+
+Primary brand accent.
+
+Use for navigation, actions, active states and technology/connection indicators.
+
+### Ice
+
+`#E2E8F0`
+
+Primary light text and high-contrast elements.
+
+### Topo Green
+
+`#22C55E`
+
+Use sparingly for readiness, success, verification and resilience states.
+
+### Accent Orange
+
+`#F97316`
+
+Use very sparingly for warnings or special highlights.
+
+Do not allow the palette to become rainbow-like.
+
+CORE should feel dark, technical, premium, rugged and modern.
+
+---
+
+# 15. VISUAL LANGUAGE
+
+The design should feel like:
+
+**Expeditionary technology + modern software + cartography + systems engineering.**
+
+Use:
+
+* Dark interfaces
+* Strong typography
+* High contrast
+* Subtle topographic/contour patterns
+* Grid structures
+* Compass/navigation motifs
+* Metallic/steel accents
+* Clean technical layouts
+* Minimal but meaningful visual indicators
+
+Avoid:
+
+* Cyberpunk
+* Hacker clichés
+* Excessive military styling
+* Tactical/prepper cosplay
+* Generic SaaS aesthetics
+* Excessive gradients
+* Cartoonish visuals
+
+CORE should feel equally appropriate on:
+
+* A student's laptop
+* A technician's rugged SSD
+* A traveller's phone
+* A field worker's computer
+* A local community server
+
+---
+
+# 16. BRAND PERSONALITY
+
+CORE should feel:
+
+* Capable
+* Intelligent
+* Independent
+* Resilient
+* Trustworthy
+* Practical
+* Modern
+* Open
+* Human
+* Purpose-driven
+
+It should never feel paranoid or fear-driven.
+
+CORE is **not anti-internet**.
+
+CORE is about resilience beyond the internet.
+
+---
+
+# 17. TECHNICAL ARCHITECTURE
+
+Build the web application in a way that allows CORE to eventually become an open framework rather than simply a website.
+
+Separate:
+
+### Presentation Layer
+
+The public CORE web application.
+
+### CORE Data Model
+
+Resources, Packs, Profiles and Manifests.
+
+### CORE Specification
+
+Documented schemas and standards.
+
+### Resource Catalogue
+
+Structured resource information.
+
+### Future API
+
+Allow third-party implementations and tools to interact with CORE data.
+
+### GitHub/Open Source
+
+The underlying framework, schemas, documentation, manifests and future tools should be capable of living independently from the hosted website.
+
+The website should be considered the **reference implementation and primary user experience**, not the entirety of CORE.
+
+---
+
+# 18. OPEN-SOURCE DIRECTION
+
+CORE should ultimately be open and community-oriented.
+
+Design toward:
+
+* Open schemas
+* Portable manifests
+* Community contributions
+* Forkable profiles
+* Shareable packs
+* Transparent resource sourcing
+* Minimal vendor lock-in
+
+Someone should eventually be able to build their own CORE-compatible application using the CORE specification.
+
+That is a long-term objective.
+
+---
+
+# 19. FUTURE VISION
+
+Do not build these features now, but architect with them in mind.
+
+### CORE Deployment Engine
+
+Automated environment creation.
+
+### CORE Health
+
+Monitor freshness and verification status.
+
+### Capability Gaps
+
+Identify what a user's CORE cannot currently provide.
+
+### PSC / Capability Score
+
+Help users understand their offline capability.
+
+### CORE Community Library
+
+A large ecosystem of community-created environments.
+
+### Organization COREs
+
+Teams can create shared environments.
+
+### CORE Stations
+
+A local server/network can provide offline access to an entire organization or community.
+
+### Humanitarian CORE Packs
+
+Purpose-built offline environments for communities and regions with unreliable or unavailable internet.
+
+The long-term mission is:
+
+> **Preserve information. Keep the unconnected connected.**
+
+But do not allow the long-term vision to inflate V1.
+
+---
+
+# 20. DEVELOPMENT PRINCIPLE
+
+Build CORE as a **platform**, but launch it as a **focused product**.
+
+Every feature should be evaluated against this question:
+
+> **Does this help someone build, maintain, or share their Personal State of Capability?**
+
+If not, it probably does not belong in CORE.
+
+Do not add features simply because they are technically interesting.
+
+Do not add AI simply because AI is fashionable.
+
+Do not add social features simply because other platforms have them.
+
+CORE should remain focused on its mission.
+
+---
+
+# 21. PRIMARY USER EXPERIENCE
+
+The user should be able to understand CORE within seconds.
+
+The homepage should communicate:
+
+## **PROJECT CORE**
+
+### **Your Personal Offline World Environment.**
+
+> We believe useful information and capability shouldn't disappear when the connection does.
+
+**No internet? No problem.**
+
+Then introduce the lifecycle:
+
+### DEFINE
+
+Define your needs.
+
+### CURATE
+
+Curate your stack.
+
+### BUILD
+
+Build your offline repository.
+
+### DEPLOY
+
+Deploy it to your machine, phone, tablet, USB, SSD or other environment.
+
+### MAINTAIN
+
+Keep it current.
+
+### SHARE
+
+Share your CORE with the community.
+
+Primary calls to action:
+
+**BUILD YOUR CORE**
+
+and
+
+**EXPLORE THE ATLAS**
+
+---
+
+# 22. IMPORTANT DEVELOPMENT INSTRUCTION
+
+Do not treat this as a generic SaaS dashboard.
+
+The application should feel like the **digital headquarters for a physical/offline capability system**.
+
+Users should feel like they are building something they can eventually **take with them**.
+
+The web application is the control and discovery layer.
+
+The user's CORE ultimately exists beyond the website.
+
+---
+
+# 23. FIRST BUILD OBJECTIVE
+
+For the first development phase, create a polished functional foundation containing:
+
+1. CORE landing page
+2. Navigation
+3. Atlas/resource catalogue
+4. Resource detail pages
+5. Pack system
+6. CORE Builder concept
+7. CORE Profile concept
+8. Manifest generation concept
+9. Community/featured CORE concept
+10. Responsive design
+11. Strong reusable component architecture
+12. Seed data demonstrating realistic CORE resources
+
+Prioritize **excellent UX and architecture over feature quantity.**
+
+The application should feel like a real product, not a prototype.
+
+---
+
+# FINAL PRODUCT STATEMENT
+
+Project CORE is an open framework for building personal offline environments.
+
+**You define your needs.
+You curate your stack.
+You build your offline repository.
+You deploy it to your world.
+You maintain it.
+You share it.**
+
+**Your resources.
+Your hardware.
+Your configuration.
+Your CORE.**
+
+### **Preserve information. Keep the unconnected connected.**
+
+### **PROJECT CORE**
+
+**Custom Offline Resource Environment**
+
+**Your Personal Offline World Environment.**

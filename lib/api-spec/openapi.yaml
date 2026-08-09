@@ -3,13 +3,26 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Project CORE API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: resources
+    description: Atlas resource catalogue
+  - name: packs
+    description: Curated resource packs
+  - name: profiles
+    description: User CORE profiles
+  - name: community
+    description: Community and featured content
+  - name: stats
+    description: Platform statistics
+  - name: manifests
+    description: CORE manifest generation
+
 paths:
   /healthz:
     get:
@@ -24,6 +37,296 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /resources:
+    get:
+      operationId: listResources
+      tags: [resources]
+      summary: List resources
+      description: Browse and search the Atlas resource catalogue
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+          description: Full-text search across name and description
+        - name: category
+          in: query
+          schema: { type: string }
+          description: Filter by category slug
+        - name: platform
+          in: query
+          schema: { type: string }
+          description: Filter by platform (e.g. Linux, Windows, Android, All)
+        - name: limit
+          in: query
+          schema: { type: number, default: 24 }
+        - name: offset
+          in: query
+          schema: { type: number, default: 0 }
+      responses:
+        "200":
+          description: Paginated list of resources
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceListResponse"
+
+  /resources/categories:
+    get:
+      operationId: listCategories
+      tags: [resources]
+      summary: List resource categories with counts
+      responses:
+        "200":
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+
+  /resources/featured:
+    get:
+      operationId: listFeaturedResources
+      tags: [resources]
+      summary: Featured resources
+      description: Highlighted resources for the homepage and Atlas discovery
+      responses:
+        "200":
+          description: Featured resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Resource"
+
+  /resources/{id}:
+    get:
+      operationId: getResource
+      tags: [resources]
+      summary: Get a single resource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: number }
+      responses:
+        "200":
+          description: Resource detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /packs:
+    get:
+      operationId: listPacks
+      tags: [packs]
+      summary: List all CORE Packs
+      responses:
+        "200":
+          description: List of packs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pack"
+
+  /packs/{id}:
+    get:
+      operationId: getPack
+      tags: [packs]
+      summary: Get a CORE Pack with its resources
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: number }
+      responses:
+        "200":
+          description: Pack with resources
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /profiles:
+    get:
+      operationId: listProfiles
+      tags: [profiles]
+      summary: List CORE Profiles
+      description: Returns community-shared profiles
+      responses:
+        "200":
+          description: List of profiles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Profile"
+    post:
+      operationId: createProfile
+      tags: [profiles]
+      summary: Create a CORE Profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileInput"
+      responses:
+        "201":
+          description: Created profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /profiles/{id}:
+    get:
+      operationId: getProfile
+      tags: [profiles]
+      summary: Get a CORE Profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: number }
+      responses:
+        "200":
+          description: Profile with selected resources and packs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfileDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    patch:
+      operationId: updateProfile
+      tags: [profiles]
+      summary: Update a CORE Profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: number }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdate"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    delete:
+      operationId: deleteProfile
+      tags: [profiles]
+      summary: Delete a CORE Profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: number }
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /manifests/{profileId}:
+    get:
+      operationId: getManifest
+      tags: [manifests]
+      summary: Generate CORE Manifest for a Profile
+      description: Returns a structured, portable CORE Manifest for the given profile
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema: { type: number }
+      responses:
+        "200":
+          description: Generated CORE Manifest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CoreManifest"
+        "404":
+          description: Profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /community/featured:
+    get:
+      operationId: getFeaturedCommunity
+      tags: [community]
+      summary: Featured community content
+      description: Returns featured profiles and packs for the community section
+      responses:
+        "200":
+          description: Featured community content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeaturedCommunity"
+
+  /stats:
+    get:
+      operationId: getStats
+      tags: [stats]
+      summary: Platform statistics
+      description: Returns overall stats (total resources, packs, profiles, categories)
+      responses:
+        "200":
+          description: Platform stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformStats"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +337,447 @@ components:
       required:
         - status
 
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    Category:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        resourceCount:
+          type: number
+        icon:
+          type: string
+      required:
+        - slug
+        - name
+        - description
+        - resourceCount
+        - icon
+
+    Resource:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        longDescription:
+          type: ["string", "null"]
+        whyUseful:
+          type: string
+        category:
+          type: string
+        categoryName:
+          type: string
+        officialUrl:
+          type: string
+        platform:
+          type: string
+        offlineCapability:
+          type: string
+          enum: [full, partial, reference]
+        approximateSizeMb:
+          type: ["number", "null"]
+        version:
+          type: ["string", "null"]
+        license:
+          type: ["string", "null"]
+        verificationStatus:
+          type: string
+          enum: [verified, unverified, community]
+        lastReviewedAt:
+          type: ["string", "null"]
+        featured:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - whyUseful
+        - category
+        - categoryName
+        - officialUrl
+        - platform
+        - offlineCapability
+        - verificationStatus
+        - featured
+        - tags
+        - createdAt
+        - updatedAt
+
+    ResourceListResponse:
+      type: object
+      properties:
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        total:
+          type: number
+        offset:
+          type: number
+        limit:
+          type: number
+      required:
+        - resources
+        - total
+        - offset
+        - limit
+
+    Pack:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        tagline:
+          type: string
+        resourceCount:
+          type: number
+        approximateTotalSizeMb:
+          type: ["number", "null"]
+        categories:
+          type: array
+          items:
+            type: string
+        featured:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+        - description
+        - tagline
+        - resourceCount
+        - categories
+        - featured
+        - createdAt
+
+    PackDetail:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        tagline:
+          type: string
+        approximateTotalSizeMb:
+          type: ["number", "null"]
+        categories:
+          type: array
+          items:
+            type: string
+        featured:
+          type: boolean
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+        - description
+        - tagline
+        - categories
+        - featured
+        - resources
+        - createdAt
+
+    Profile:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        authorName:
+          type: string
+        description:
+          type: string
+        purpose:
+          type: string
+        storageCapacityGb:
+          type: ["number", "null"]
+        targetDevice:
+          type: ["string", "null"]
+        resourceCount:
+          type: number
+        allocatedSizeMb:
+          type: number
+        isPublic:
+          type: boolean
+        forkCount:
+          type: number
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - name
+        - authorName
+        - description
+        - purpose
+        - resourceCount
+        - allocatedSizeMb
+        - isPublic
+        - forkCount
+        - createdAt
+        - updatedAt
+
+    ProfileDetail:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        authorName:
+          type: string
+        description:
+          type: string
+        purpose:
+          type: string
+        storageCapacityGb:
+          type: ["number", "null"]
+        targetDevice:
+          type: ["string", "null"]
+        resourceCount:
+          type: number
+        allocatedSizeMb:
+          type: number
+        isPublic:
+          type: boolean
+        forkCount:
+          type: number
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        packs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Pack"
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - name
+        - authorName
+        - description
+        - purpose
+        - resourceCount
+        - allocatedSizeMb
+        - isPublic
+        - forkCount
+        - resources
+        - packs
+        - createdAt
+        - updatedAt
+
+    ProfileInput:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        authorName:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        purpose:
+          type: string
+        storageCapacityGb:
+          type: ["number", "null"]
+        targetDevice:
+          type: ["string", "null"]
+        isPublic:
+          type: boolean
+        resourceIds:
+          type: array
+          items:
+            type: number
+        packIds:
+          type: array
+          items:
+            type: number
+      required:
+        - name
+        - authorName
+        - description
+        - purpose
+
+    ProfileUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        authorName:
+          type: string
+        description:
+          type: string
+        purpose:
+          type: string
+        storageCapacityGb:
+          type: ["number", "null"]
+        targetDevice:
+          type: ["string", "null"]
+        isPublic:
+          type: boolean
+        resourceIds:
+          type: array
+          items:
+            type: number
+        packIds:
+          type: array
+          items:
+            type: number
+
+    CoreManifest:
+      type: object
+      properties:
+        version:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        author:
+          type: string
+        purpose:
+          type: string
+        targetDevice:
+          type: ["string", "null"]
+        storageCapacityGb:
+          type: ["number", "null"]
+        createdAt:
+          type: string
+        totalResources:
+          type: number
+        estimatedSizeMb:
+          type: number
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/ManifestResource"
+        packs:
+          type: array
+          items:
+            type: string
+      required:
+        - version
+        - name
+        - description
+        - author
+        - purpose
+        - createdAt
+        - totalResources
+        - estimatedSizeMb
+        - resources
+        - packs
+
+    ManifestResource:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        officialUrl:
+          type: string
+        version:
+          type: ["string", "null"]
+        license:
+          type: ["string", "null"]
+        approximateSizeMb:
+          type: ["number", "null"]
+        verificationStatus:
+          type: string
+      required:
+        - name
+        - category
+        - officialUrl
+        - verificationStatus
+
+    FeaturedCommunity:
+      type: object
+      properties:
+        featuredProfiles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Profile"
+        featuredPacks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Pack"
+        recentProfiles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Profile"
+      required:
+        - featuredProfiles
+        - featuredPacks
+        - recentProfiles
+
+    PlatformStats:
+      type: object
+      properties:
+        totalResources:
+          type: number
+        totalPacks:
+          type: number
+        totalProfiles:
+          type: number
+        totalCategories:
+          type: number
+        totalCommunityMembers:
+          type: number
+        verifiedResources:
+          type: number
+      required:
+        - totalResources
+        - totalPacks
+        - totalProfiles
+        - totalCategories
+        - totalCommunityMembers
+        - verifiedResources
