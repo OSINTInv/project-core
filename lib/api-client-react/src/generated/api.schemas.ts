@@ -21,6 +21,22 @@ export interface Category {
   icon: string;
 }
 
+export type ResourceResourceType = typeof ResourceResourceType[keyof typeof ResourceResourceType];
+
+
+export const ResourceResourceType = {
+  software: 'software',
+  dataset: 'dataset',
+  documentation: 'documentation',
+  map: 'map',
+  'ai-model': 'ai-model',
+  guide: 'guide',
+  reference: 'reference',
+  tool: 'tool',
+  os: 'os',
+  other: 'other',
+} as const;
+
 export type ResourceOfflineCapability = typeof ResourceOfflineCapability[keyof typeof ResourceOfflineCapability];
 
 
@@ -42,13 +58,19 @@ export const ResourceVerificationStatus = {
 export interface Resource {
   id: number;
   name: string;
+  slug: string;
   description: string;
   /** @nullable */
   longDescription?: string | null;
   whyUseful: string;
   category: string;
   categoryName: string;
+  /** @nullable */
+  subcategory?: string | null;
+  resourceType: ResourceResourceType;
   officialUrl: string;
+  /** @nullable */
+  offlineMethod?: string | null;
   platform: string;
   offlineCapability: ResourceOfflineCapability;
   /** @nullable */
@@ -57,6 +79,8 @@ export interface Resource {
   version?: string | null;
   /** @nullable */
   license?: string | null;
+  /** @nullable */
+  sourceOrganization?: string | null;
   verificationStatus: ResourceVerificationStatus;
   /** @nullable */
   lastReviewedAt?: string | null;

@@ -372,6 +372,8 @@ components:
           type: number
         name:
           type: string
+        slug:
+          type: string
         description:
           type: string
         longDescription:
@@ -382,8 +384,15 @@ components:
           type: string
         categoryName:
           type: string
+        subcategory:
+          type: ["string", "null"]
+        resourceType:
+          type: string
+          enum: [software, dataset, documentation, map, ai-model, guide, reference, tool, os, other]
         officialUrl:
           type: string
+        offlineMethod:
+          type: ["string", "null"]
         platform:
           type: string
         offlineCapability:
@@ -394,6 +403,8 @@ components:
         version:
           type: ["string", "null"]
         license:
+          type: ["string", "null"]
+        sourceOrganization:
           type: ["string", "null"]
         verificationStatus:
           type: string
@@ -413,10 +424,12 @@ components:
       required:
         - id
         - name
+        - slug
         - description
         - whyUseful
         - category
         - categoryName
+        - resourceType
         - officialUrl
         - platform
         - offlineCapability

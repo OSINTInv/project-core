@@ -11,9 +11,7 @@ export default function PackDetail() {
   const params = useParams()
   const id = Number(params.id)
   
-  const { data: pack, isLoading, error, refetch } = useGetPack(id, {
-    query: { enabled: !!id }
-  })
+  const { data: pack, isLoading, error, refetch } = useGetPack(id)
 
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorState error={error as Error} retry={refetch} />

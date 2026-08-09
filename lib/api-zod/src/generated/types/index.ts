@@ -23,4 +23,5 @@ export * from './profileUpdate';
 export * from './resource';
 export * from './resourceListResponse';
 export * from './resourceOfflineCapability';
+export * from './resourceResourceType';
 export * from './resourceVerificationStatus';

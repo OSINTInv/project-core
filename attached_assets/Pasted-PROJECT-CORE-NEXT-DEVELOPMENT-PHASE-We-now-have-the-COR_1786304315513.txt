@@ -1,0 +1,91 @@
+PROJECT CORE — NEXT DEVELOPMENT PHASE
+
+We now have the CORE website foundation and the project is connected to the public GitHub repository.
+
+Do not redesign the existing UI or branding.
+
+The next objective is to make CORE function as an actual platform.
+
+Start by implementing the CORE Resource data model and the Atlas architecture.
+
+A CORE Resource is a discoverable offline-capable information, knowledge, software, tool, documentation, map, dataset, AI resource, or other resource that a user may choose to include in their personal CORE.
+
+Create a structured Resource model with these fields:
+
+- id
+- name
+- slug
+- shortDescription
+- fullDescription
+- category
+- subcategory
+- resourceType
+- officialSourceUrl
+- offlineMethod
+- platform
+- estimatedSize
+- version
+- license
+- sourceOrganization
+- verificationStatus
+- lastVerified
+- tags
+- featured
+- createdAt
+- updatedAt
+
+The architecture must allow resources to be added, edited, searched, filtered, categorized, and eventually added to a user's CORE.
+
+IMPORTANT:
+
+CORE does NOT host third-party resources by default.
+
+The Atlas should point users toward legitimate/official sources and explain how a resource can be obtained and used offline.
+
+Implement the following initial workflow:
+
+ATLAS → RESOURCE DETAIL → ADD TO MY CORE
+
+When a user selects "Add to My CORE", the resource should be added to a temporary/current CORE selection.
+
+Create a basic CORE Builder state that can display:
+
+- Selected resources
+- Total estimated storage
+- Categories represented
+- Number of resources
+- Ability to remove resources
+
+Do not implement user authentication yet.
+
+Do not implement automated downloading yet.
+
+Do not implement USB deployment yet.
+
+Do not build the full Community system yet.
+
+Do not populate hundreds of resources yet.
+
+Instead, create approximately 15–20 realistic seed resources across several categories so we can test the system.
+
+Use legitimate official source URLs.
+
+The important goal of this phase is proving this workflow:
+
+DISCOVER
+→ VIEW RESOURCE
+→ ADD TO MY CORE
+→ SEE RESOURCE IN BUILDER
+→ SEE TOTAL STORAGE
+
+Maintain the existing CORE visual identity, colour palette, logo, navigation, typography, and overall design.
+
+Use the existing UI components wherever possible.
+
+Do not redesign the application.
+
+After implementation, test the complete workflow and ensure there are no broken links, console errors, or state-management issues.
+
+Commit the completed work to Git with a clear commit message:
+
+feat: establish CORE resource and Atlas foundation

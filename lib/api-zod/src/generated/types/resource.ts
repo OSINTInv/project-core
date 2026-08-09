@@ -6,18 +6,25 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { ResourceOfflineCapability } from './resourceOfflineCapability';
+import type { ResourceResourceType } from './resourceResourceType';
 import type { ResourceVerificationStatus } from './resourceVerificationStatus';
 
 export interface Resource {
   id: number;
   name: string;
+  slug: string;
   description: string;
   /** @nullable */
   longDescription?: string | null;
   whyUseful: string;
   category: string;
   categoryName: string;
+  /** @nullable */
+  subcategory?: string | null;
+  resourceType: ResourceResourceType;
   officialUrl: string;
+  /** @nullable */
+  offlineMethod?: string | null;
   platform: string;
   offlineCapability: ResourceOfflineCapability;
   /** @nullable */
@@ -26,6 +33,8 @@ export interface Resource {
   version?: string | null;
   /** @nullable */
   license?: string | null;
+  /** @nullable */
+  sourceOrganization?: string | null;
   verificationStatus: ResourceVerificationStatus;
   /** @nullable */
   lastReviewedAt?: string | null;

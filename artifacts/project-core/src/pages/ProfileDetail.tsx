@@ -14,13 +14,9 @@ export default function ProfileDetail() {
   const id = Number(params.id)
   const [_, setLocation] = useLocation()
   
-  const { data: profile, isLoading, error, refetch } = useGetProfile(id, {
-    query: { enabled: !!id }
-  })
+  const { data: profile, isLoading, error, refetch } = useGetProfile(id)
   
-  const { data: manifest, isLoading: isManifestLoading } = useGetManifest(id, {
-    query: { enabled: !!id }
-  })
+  const { data: manifest, isLoading: isManifestLoading } = useGetManifest(id)
 
   const deleteProfile = useDeleteProfile()
 

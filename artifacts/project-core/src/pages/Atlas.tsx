@@ -3,17 +3,19 @@ import { useListResources, useListCategories } from "@workspace/api-client-react
 import { Link } from "wouter"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Filter, Server, Package } from "lucide-react"
+import { Search, Server, Package, Plus, CheckCircle2 } from "lucide-react"
 import { VerificationBadge } from "@/components/VerificationBadge"
 import { OfflineCapabilityIcon } from "@/components/OfflineCapabilityIcon"
 import { formatSizeMb } from "@/lib/utils"
 import { LoadingSpinner } from "@/components/States"
 import { useDebounce } from "@/hooks/use-debounce"
+import { useCORE } from "@/context/CoreContext"
 
 export default function Atlas() {
   const [search, setSearch] = useState("")
   const debouncedSearch = useDebounce(search, 300)
   const [selectedCategory, setSelectedCategory] = useState<string>("")
+  const { addItem, removeItem, hasItem } = useCORE()
 
   const { data: categories } = useListCategories()
   
@@ -21,7 +23,7 @@ export default function Atlas() {
     search: debouncedSearch || undefined,
     category: selectedCategory || undefined,
     limit: 50
-  }, { query: { keepPreviousData: true } })
+  })
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -33,7 +35,7 @@ export default function Atlas() {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar Filters */}
+        {/* Sidebar */}
         <aside className="w-full md:w-64 shrink-0">
           <div className="sticky top-24 space-y-6">
             <div>
@@ -73,7 +75,7 @@ export default function Atlas() {
           </div>
         </aside>
 
-        {/* Main Content */}
+        {/* Main */}
         <main className="flex-1">
           <div className="relative mb-6">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -94,30 +96,76 @@ export default function Atlas() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {resourceData?.resources.map(resource => (
-                  <Link key={resource.id} href={`/atlas/${resource.id}`}>
-                    <div className="p-5 border border-border bg-card hover:border-primary/50 transition-colors h-full flex flex-col group cursor-pointer rounded-sm relative overflow-hidden">
-                      {resource.featured && (
-                        <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-                          <div className="absolute top-2 -right-6 bg-primary text-primary-foreground font-mono text-[9px] uppercase tracking-wider py-1 px-8 rotate-45 transform origin-center">
-                            Core
+                {resourceData?.resources.map(resource => {
+                  const inCore = hasItem(resource.id)
+                  return (
+                    <div key={resource.id} className="relative group">
+                      <Link href={`/atlas/${resource.id}`}>
+                        <div className={`p-5 border bg-card transition-colors h-full flex flex-col cursor-pointer rounded-sm relative overflow-hidden pb-14 ${
+                          inCore ? "border-[#22C55E]/40" : "border-border hover:border-primary/50"
+                        }`}>
+                          {resource.featured && !inCore && (
+                            <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                              <div className="absolute top-2 -right-6 bg-primary text-primary-foreground font-mono text-[9px] uppercase tracking-wider py-1 px-8 rotate-45 transform origin-center">
+                                Core
+                              </div>
+                            </div>
+                          )}
+                          {inCore && (
+                            <div className="absolute top-2 right-2">
+                              <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                            </div>
+                          )}
+                          
+                          <div className="flex justify-between items-start mb-3">
+                            <VerificationBadge status={resource.verificationStatus} />
+                            <OfflineCapabilityIcon capability={resource.offlineCapability} className="w-5 h-5 mr-4 group-hover:text-primary transition-colors" />
+                          </div>
+                          <h4 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors pr-6">{resource.name}</h4>
+                          <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-1">{resource.description}</p>
+                          <div className="flex justify-between items-center text-xs font-mono text-muted-foreground pt-3 border-t border-border/50">
+                            <span className="flex items-center gap-1.5"><Package className="w-3.5 h-3.5" /> {resource.categoryName}</span>
+                            <span>{formatSizeMb(resource.approximateSizeMb || 0)}</span>
                           </div>
                         </div>
-                      )}
-                      
-                      <div className="flex justify-between items-start mb-3">
-                        <VerificationBadge status={resource.verificationStatus} />
-                        <OfflineCapabilityIcon capability={resource.offlineCapability} className="w-5 h-5 mr-4 group-hover:text-primary transition-colors" />
-                      </div>
-                      <h4 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors pr-6">{resource.name}</h4>
-                      <p className="text-sm text-muted-foreground line-clamp-3 mb-6 flex-1">{resource.description}</p>
-                      <div className="flex justify-between items-center text-xs font-mono text-muted-foreground pt-3 border-t border-border/50">
-                        <span className="flex items-center gap-1.5"><Package className="w-3.5 h-3.5" /> {resource.categoryName}</span>
-                        <span>{formatSizeMb(resource.approximateSizeMb || 0)}</span>
-                      </div>
+                      </Link>
+
+                      {/* Add to CORE button — sits above the card */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          if (inCore) {
+                            removeItem(resource.id)
+                          } else {
+                            addItem({
+                              id: resource.id,
+                              name: resource.name,
+                              slug: resource.slug,
+                              category: resource.category,
+                              categoryName: resource.categoryName,
+                              approximateSizeMb: resource.approximateSizeMb ?? null,
+                              offlineCapability: resource.offlineCapability,
+                              resourceType: resource.resourceType,
+                              description: resource.description,
+                            })
+                          }
+                        }}
+                        className={`absolute bottom-0 left-0 right-0 h-11 flex items-center justify-center gap-2 font-mono text-xs font-bold uppercase tracking-wider transition-all rounded-b-sm ${
+                          inCore
+                            ? "bg-[#22C55E]/10 text-[#22C55E] border border-[#22C55E]/40 border-t-0"
+                            : "bg-muted/80 text-muted-foreground hover:bg-primary hover:text-primary-foreground border border-border border-t-0"
+                        }`}
+                      >
+                        {inCore ? (
+                          <><CheckCircle2 className="w-3.5 h-3.5" /> In Your CORE</>
+                        ) : (
+                          <><Plus className="w-3.5 h-3.5" /> Add to My CORE</>
+                        )}
+                      </button>
                     </div>
-                  </Link>
-                ))}
+                  )
+                })}
               </div>
               
               {resourceData?.resources.length === 0 && (

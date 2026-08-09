@@ -1,9 +1,13 @@
 import { Link, useLocation } from "wouter"
 import { Button } from "@/components/ui/button"
 import coreLogo from "@assets/CORE_LOGO_1786303177424.png"
+import { useCORE } from "@/context/CoreContext"
+import { formatSizeMb } from "@/lib/utils"
+import { HardDrive } from "lucide-react"
 
 export function Navbar() {
   const [location] = useLocation()
+  const { items, totalSizeMb } = useCORE()
 
   const links = [
     { href: "/atlas", label: "Atlas" },
@@ -42,7 +46,16 @@ export function Navbar() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          {items.length > 0 && (
+            <Link href="/builder">
+              <div className="flex items-center gap-2 px-3 py-1.5 border border-primary/30 bg-primary/10 rounded-sm cursor-pointer hover:border-primary/60 transition-colors">
+                <HardDrive className="w-3.5 h-3.5 text-primary" />
+                <span className="font-mono text-xs text-primary font-bold">{items.length}</span>
+                <span className="font-mono text-xs text-primary/70 hidden sm:inline">{formatSizeMb(totalSizeMb)}</span>
+              </div>
+            </Link>
+          )}
           <Link href="/builder" className="inline-block">
             <Button className="font-mono rounded-sm text-xs font-bold uppercase tracking-wider">
               Build Your CORE
