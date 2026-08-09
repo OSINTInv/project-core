@@ -39,17 +39,25 @@ export default function Home() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl"
           >
-            No internet? <br className="md:hidden"/>
-            <span className="text-primary font-mono font-normal">No problem.</span>
+            No Internet? <span className="text-primary font-mono font-normal">No Problem.</span>
           </motion.h1>
           
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-4"
           >
-            The digital command center for building personal offline environments. Plan, curate, and deploy offline knowledge bases for field operations, remote work, or disaster preparedness.
+            Define your needs. Curate your stack. Build your offline repository. Deploy it to your world. Maintain it. Share it.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="text-sm font-mono uppercase tracking-widest text-primary/70 mb-10"
+          >
+            Preserve information. Keep the unconnected connected.
           </motion.p>
           
           <motion.div 
