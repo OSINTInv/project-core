@@ -33,7 +33,7 @@ export function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs font-mono text-muted-foreground">
-            &copy; {new Date().getFullYear()} Project CORE. Open source.
+            &copy; 2026 Josh Simmons
           </p>
           <div className="flex items-center gap-4 text-xs font-mono text-muted-foreground">
             <span>SYS. STATUS: <span className="text-[#22C55E]">NOMINAL</span></span>
