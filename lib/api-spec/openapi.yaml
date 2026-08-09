@@ -391,6 +391,13 @@ components:
           enum: [software, dataset, documentation, map, ai-model, guide, reference, tool, os, other]
         officialUrl:
           type: string
+        acquisitionUrl:
+          type: ["string", "null"]
+        acquisitionMethod:
+          type: ["string", "null"]
+          enum: [direct-download, official-website, package-repository, offline-database, offline-archive, installer, documentation-download, manual, local-model-download, other, null]
+        downloadInstructions:
+          type: ["string", "null"]
         offlineMethod:
           type: ["string", "null"]
         platform:

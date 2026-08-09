@@ -21,6 +21,7 @@ export * from './profileDetail';
 export * from './profileInput';
 export * from './profileUpdate';
 export * from './resource';
+export * from './resourceAcquisitionMethod';
 export * from './resourceListResponse';
 export * from './resourceOfflineCapability';
 export * from './resourceResourceType';

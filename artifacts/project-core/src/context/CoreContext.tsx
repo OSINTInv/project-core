@@ -12,6 +12,10 @@ export interface CoreItem {
   offlineCapability: string
   resourceType: string
   description: string
+  officialUrl: string
+  acquisitionUrl: string | null
+  acquisitionMethod: string | null
+  sourceOrganization: string | null
 }
 
 interface CoreContextValue {

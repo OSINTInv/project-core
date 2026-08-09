@@ -5,6 +5,7 @@
  * Project CORE API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { ResourceAcquisitionMethod } from './resourceAcquisitionMethod';
 import type { ResourceOfflineCapability } from './resourceOfflineCapability';
 import type { ResourceResourceType } from './resourceResourceType';
 import type { ResourceVerificationStatus } from './resourceVerificationStatus';
@@ -23,6 +24,12 @@ export interface Resource {
   subcategory?: string | null;
   resourceType: ResourceResourceType;
   officialUrl: string;
+  /** @nullable */
+  acquisitionUrl?: string | null;
+  /** @nullable */
+  acquisitionMethod?: ResourceAcquisitionMethod;
+  /** @nullable */
+  downloadInstructions?: string | null;
   /** @nullable */
   offlineMethod?: string | null;
   platform: string;

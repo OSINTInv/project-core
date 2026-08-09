@@ -5,8 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowRight, ArrowLeft, CheckCircle2, Package, Database, ShieldAlert, Cpu, HardDrive, X, Layers } from "lucide-react"
+import {
+  ArrowRight, ArrowLeft, CheckCircle2, Package,
+  Database, ShieldAlert, Cpu, HardDrive, X, Layers,
+  ExternalLink, Globe
+} from "lucide-react"
 import { formatSizeMb } from "@/lib/utils"
+import { getAcquisitionMeta } from "@/lib/acquisition"
 import { useCORE } from "@/context/CoreContext"
 
 type Step = 1 | 2 | 3 | 4
@@ -17,7 +22,7 @@ export default function Builder() {
   const { items: coreItems, removeItem, totalSizeMb, categories: coreCategories, addItem, hasItem } = useCORE()
 
   const createProfile = useCreateProfile()
-  
+
   const { data: resourceData, isLoading: resLoading } = useListResources({ limit: 100 })
   const { data: packsData, isLoading: packsLoading } = useListPacks()
 
@@ -93,33 +98,70 @@ export default function Builder() {
         <div className="px-5 py-8 text-center">
           <p className="text-sm text-muted-foreground font-mono mb-3">No resources added yet.</p>
           <Link href="/atlas">
-            <Button variant="outline" size="sm" className="font-mono text-xs">
-              Browse the Atlas
-            </Button>
+            <Button variant="outline" size="sm" className="font-mono text-xs">Browse the Atlas</Button>
           </Link>
         </div>
       ) : (
-        <div className="divide-y divide-border/50">
-          {coreItems.map(item => (
-            <div key={item.id} className="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors group">
-              <div className="flex-1 min-w-0">
-                <Link href={`/atlas/${item.id}`}>
-                  <span className="text-sm font-medium hover:text-primary transition-colors cursor-pointer">{item.name}</span>
-                </Link>
-                <span className="text-xs font-mono text-muted-foreground ml-2">{item.categoryName}</span>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-xs font-mono text-muted-foreground">{formatSizeMb(item.approximateSizeMb || 0)}</span>
-                <button
-                  onClick={() => removeItem(item.id)}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <>
+          {/* Header row */}
+          <div className="hidden md:grid grid-cols-[1fr_140px_100px_100px_32px] gap-3 px-5 py-2 border-b border-border/40 bg-muted/20">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Resource</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Source</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Method</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground text-right">Size</span>
+            <span />
+          </div>
+
+          <div className="divide-y divide-border/40">
+            {coreItems.map(item => {
+              const acq = getAcquisitionMeta(item.acquisitionMethod)
+              const getUrl = item.acquisitionUrl || item.officialUrl
+              return (
+                <div key={item.id} className="grid grid-cols-1 md:grid-cols-[1fr_140px_100px_100px_32px] gap-2 md:gap-3 items-center px-5 py-3 hover:bg-muted/20 transition-colors group">
+                  <div className="min-w-0">
+                    <Link href={`/atlas/${item.id}`}>
+                      <span className="text-sm font-medium hover:text-primary transition-colors cursor-pointer block truncate">{item.name}</span>
+                    </Link>
+                    <span className="text-[11px] font-mono text-muted-foreground">{item.categoryName}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    {getUrl ? (
+                      <a href={getUrl} target="_blank" rel="noreferrer"
+                        className="flex items-center gap-1 text-[11px] font-mono text-muted-foreground hover:text-primary transition-colors truncate"
+                        title={item.sourceOrganization || getUrl}
+                      >
+                        <Globe className="w-3 h-3 shrink-0" />
+                        <span className="truncate">{item.sourceOrganization || "Source"}</span>
+                        <ExternalLink className="w-2.5 h-2.5 shrink-0 opacity-60" />
+                      </a>
+                    ) : (
+                      <span className="text-[11px] font-mono text-muted-foreground">{item.sourceOrganization || "—"}</span>
+                    )}
+                  </div>
+
+                  <div>
+                    <span className="text-[11px] font-mono text-muted-foreground">{acq.label}</span>
+                  </div>
+
+                  <div className="text-right">
+                    <span className="text-xs font-mono text-muted-foreground">{formatSizeMb(item.approximateSizeMb || 0)}</span>
+                  </div>
+
+                  <div>
+                    <button
+                      onClick={() => removeItem(item.id)}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                      title="Remove from CORE"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </>
       )}
 
       {coreCategories.length > 0 && (
@@ -139,7 +181,7 @@ export default function Builder() {
       <div className="mb-8 pb-8 border-b border-border">
         <h1 className="text-3xl font-bold mb-2">CORE Builder</h1>
         <p className="text-muted-foreground">Build your Personal Offline World Environment. Your resources. Your hardware. Your configuration.</p>
-        
+
         <div className="flex gap-2 mt-8">
           {[1, 2, 3, 4].map(s => (
             <div key={s} className={`h-2 flex-1 rounded-full transition-colors ${step >= s ? 'bg-primary' : 'bg-muted'}`} />
@@ -161,7 +203,7 @@ export default function Builder() {
         {step === 1 && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <h2 className="text-xl font-bold font-mono border-b border-border pb-2 mb-6">01. YOUR CORE</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-xs font-mono font-bold uppercase text-muted-foreground">CORE Name</label>
@@ -177,10 +219,8 @@ export default function Builder() {
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Purpose</label>
-                <Select value={formData.purpose} onValueChange={(val) => setFormData(prev => ({...prev, purpose: val}))}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select purpose" />
-                  </SelectTrigger>
+                <Select value={formData.purpose} onValueChange={(val) => setFormData(prev => ({ ...prev, purpose: val }))}>
+                  <SelectTrigger><SelectValue placeholder="Select purpose" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="travel">Travel</SelectItem>
                     <SelectItem value="education">Education / Learning</SelectItem>
@@ -202,11 +242,11 @@ export default function Builder() {
               </div>
               <div className="space-y-2 flex items-end">
                 <div className="flex items-center gap-3 p-3 border border-border rounded-sm w-full bg-background">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     id="isPublic"
                     checked={formData.isPublic}
-                    onChange={(e) => setFormData(prev => ({...prev, isPublic: e.target.checked}))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, isPublic: e.target.checked }))}
                     className="w-4 h-4 accent-primary"
                   />
                   <label htmlFor="isPublic" className="text-sm font-mono cursor-pointer select-none">Share with the community</label>
@@ -228,7 +268,7 @@ export default function Builder() {
               <h2 className="text-xl font-bold font-mono">02. CHOOSE YOUR RESOURCES</h2>
               <span className="font-mono text-xs text-primary">{coreItems.length} Selected</span>
             </div>
-            
+
             <p className="text-sm text-muted-foreground mb-4">Choose the information, knowledge, software, and tools you want available when you're offline. Resources you've already added from the Atlas are pre-selected.</p>
 
             <div className="h-[400px] overflow-y-auto pr-2 space-y-2">
@@ -237,8 +277,8 @@ export default function Builder() {
               ) : resourceData?.resources.map(res => {
                 const inCore = hasItem(res.id)
                 return (
-                  <div 
-                    key={res.id} 
+                  <div
+                    key={res.id}
                     onClick={() => inCore ? removeItem(res.id) : addItem({
                       id: res.id,
                       name: res.name,
@@ -249,6 +289,10 @@ export default function Builder() {
                       offlineCapability: res.offlineCapability,
                       resourceType: res.resourceType,
                       description: res.description,
+                      officialUrl: res.officialUrl,
+                      acquisitionUrl: res.acquisitionUrl ?? null,
+                      acquisitionMethod: res.acquisitionMethod ?? null,
+                      sourceOrganization: res.sourceOrganization ?? null,
                     })}
                     className={`p-3 border rounded-sm flex items-center gap-4 cursor-pointer transition-colors ${
                       inCore ? 'border-primary bg-primary/10' : 'border-border bg-background hover:border-primary/50'
@@ -288,15 +332,15 @@ export default function Builder() {
               <h2 className="text-xl font-bold font-mono">03. ADD A STARTING PACK</h2>
               <span className="font-mono text-xs text-primary">{selectedPacks.size} Selected</span>
             </div>
-            
+
             <p className="text-sm text-muted-foreground mb-4">Packs are curated starting points. Add one to give your CORE a foundation — then customise from there.</p>
 
             <div className="h-[400px] overflow-y-auto pr-2 space-y-3">
               {packsLoading ? (
                 <div className="flex justify-center py-12"><div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" /></div>
               ) : packsData?.map(pack => (
-                <div 
-                  key={pack.id} 
+                <div
+                  key={pack.id}
                   onClick={() => togglePack(pack.id)}
                   className={`p-4 border rounded-sm flex gap-4 cursor-pointer transition-colors ${
                     selectedPacks.has(pack.id) ? 'border-primary bg-primary/10' : 'border-border bg-background hover:border-primary/50'
@@ -337,7 +381,7 @@ export default function Builder() {
         {step === 4 && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <h2 className="text-xl font-bold font-mono border-b border-border pb-2 mb-6">04. REVIEW YOUR CORE</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div>
@@ -345,7 +389,7 @@ export default function Builder() {
                   <p className="text-lg font-bold">{formData.name || 'Unnamed CORE'}</p>
                   <p className="text-sm text-muted-foreground">by {formData.authorName || 'Anonymous'}</p>
                 </div>
-                
+
                 <div>
                   <h3 className="text-xs font-mono font-bold uppercase text-muted-foreground mb-2">Parameters</h3>
                   <dl className="text-sm font-mono space-y-1">
@@ -368,12 +412,12 @@ export default function Builder() {
                   </div>
                 )}
               </div>
-              
+
               <div className="bg-background border border-border p-6 rounded-sm space-y-4">
                 <h3 className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-2">
                   <ShieldAlert className="w-4 h-4" /> Storage Estimate
                 </h3>
-                
+
                 <div className="flex justify-between items-center py-2 border-b border-border/50">
                   <span className="text-sm font-mono flex items-center gap-2"><Database className="w-4 h-4 text-muted-foreground" /> Resources</span>
                   <strong className="font-mono">{coreItems.length} <span className="text-muted-foreground font-normal text-xs">({formatSizeMb(totalSizeMb)})</span></strong>
@@ -386,7 +430,7 @@ export default function Builder() {
                   <span className="text-sm font-mono font-bold flex items-center gap-2"><HardDrive className="w-4 h-4" /> Total Estimated</span>
                   <strong className="font-mono text-lg text-primary">{formatSizeMb(estimatedTotal)}</strong>
                 </div>
-                
+
                 {formData.storageCapacityGb && (estimatedTotal > Number(formData.storageCapacityGb) * 1024) && (
                   <div className="p-3 bg-[#F97316]/10 border border-[#F97316]/30 text-[#F97316] text-xs font-mono rounded-sm mt-4">
                     Estimated size exceeds your available storage ({formData.storageCapacityGb} GB). Consider removing some resources.
@@ -399,8 +443,8 @@ export default function Builder() {
               <Button variant="outline" onClick={() => setStep(3)} disabled={createProfile.isPending} className="font-mono font-bold">
                 <ArrowLeft className="w-4 h-4 mr-2" /> BACK
               </Button>
-              <Button 
-                onClick={handleBuild} 
+              <Button
+                onClick={handleBuild}
                 disabled={createProfile.isPending}
                 className="font-mono font-bold tracking-wider"
               >

@@ -37,6 +37,25 @@ export const ResourceResourceType = {
   other: 'other',
 } as const;
 
+/**
+ * @nullable
+ */
+export type ResourceAcquisitionMethod = typeof ResourceAcquisitionMethod[keyof typeof ResourceAcquisitionMethod] | null;
+
+
+export const ResourceAcquisitionMethod = {
+  'direct-download': 'direct-download',
+  'official-website': 'official-website',
+  'package-repository': 'package-repository',
+  'offline-database': 'offline-database',
+  'offline-archive': 'offline-archive',
+  installer: 'installer',
+  'documentation-download': 'documentation-download',
+  manual: 'manual',
+  'local-model-download': 'local-model-download',
+  other: 'other',
+} as const;
+
 export type ResourceOfflineCapability = typeof ResourceOfflineCapability[keyof typeof ResourceOfflineCapability];
 
 
@@ -69,6 +88,12 @@ export interface Resource {
   subcategory?: string | null;
   resourceType: ResourceResourceType;
   officialUrl: string;
+  /** @nullable */
+  acquisitionUrl?: string | null;
+  /** @nullable */
+  acquisitionMethod?: ResourceAcquisitionMethod;
+  /** @nullable */
+  downloadInstructions?: string | null;
   /** @nullable */
   offlineMethod?: string | null;
   platform: string;

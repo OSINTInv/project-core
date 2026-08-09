@@ -18,7 +18,7 @@ export default function Atlas() {
   const { addItem, removeItem, hasItem } = useCORE()
 
   const { data: categories } = useListCategories()
-  
+
   const { data: resourceData, isLoading } = useListResources({
     search: debouncedSearch || undefined,
     category: selectedCategory || undefined,
@@ -63,7 +63,7 @@ export default function Atlas() {
                 ))}
               </div>
             </div>
-            
+
             <div className="p-4 border border-border bg-card/50 rounded-sm">
               <h3 className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2 flex items-center gap-2">
                 <Server className="w-4 h-4" /> About the Atlas
@@ -79,8 +79,8 @@ export default function Atlas() {
         <main className="flex-1">
           <div className="relative mb-6">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input 
-              placeholder="Search by name, description, or tags..." 
+            <Input
+              placeholder="Search by name, description, or tags..."
               className="pl-10 h-12 text-base font-sans"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -94,7 +94,7 @@ export default function Atlas() {
               <div className="mb-4 text-sm font-mono text-muted-foreground">
                 Showing {resourceData?.resources.length || 0} of {resourceData?.total || 0} resources
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {resourceData?.resources.map(resource => {
                   const inCore = hasItem(resource.id)
@@ -116,7 +116,7 @@ export default function Atlas() {
                               <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
                             </div>
                           )}
-                          
+
                           <div className="flex justify-between items-start mb-3">
                             <VerificationBadge status={resource.verificationStatus} />
                             <OfflineCapabilityIcon capability={resource.offlineCapability} className="w-5 h-5 mr-4 group-hover:text-primary transition-colors" />
@@ -130,7 +130,7 @@ export default function Atlas() {
                         </div>
                       </Link>
 
-                      {/* Add to CORE button — sits above the card */}
+                      {/* Add to CORE button */}
                       <button
                         onClick={(e) => {
                           e.preventDefault()
@@ -148,6 +148,10 @@ export default function Atlas() {
                               offlineCapability: resource.offlineCapability,
                               resourceType: resource.resourceType,
                               description: resource.description,
+                              officialUrl: resource.officialUrl,
+                              acquisitionUrl: resource.acquisitionUrl ?? null,
+                              acquisitionMethod: resource.acquisitionMethod ?? null,
+                              sourceOrganization: resource.sourceOrganization ?? null,
                             })
                           }
                         }}
@@ -167,7 +171,7 @@ export default function Atlas() {
                   )
                 })}
               </div>
-              
+
               {resourceData?.resources.length === 0 && (
                 <div className="py-20 text-center border border-dashed border-border rounded-sm">
                   <p className="text-muted-foreground font-mono">No resources found matching your criteria.</p>

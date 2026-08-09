@@ -1,0 +1,183 @@
+PROJECT CORE — STEP 2: RESOURCE ACQUISITION
+
+The CORE Atlas → Resource → Add to My CORE → Builder workflow is now functional.
+
+The next objective is to make resources actually obtainable.
+
+Do not redesign the existing UI, branding, layout, colour palette, logo, or overall UX.
+
+Add a Resource Acquisition layer to the existing Resource model and Resource Detail experience.
+
+For every CORE Resource, support the following acquisition information:
+
+- officialSourceUrl
+- acquisitionUrl (if different from the official source)
+- acquisitionMethod
+- offlineMethod
+- downloadInstructions
+- platform
+- estimatedSize
+- version
+- license
+- sourceOrganization
+- verificationStatus
+- lastVerified
+
+The user should be able to open a Resource Detail page and clearly understand:
+
+1. What the resource is
+2. Why they may want it offline
+3. Where to obtain it
+4. What version or format to obtain
+5. How it can be used offline
+6. What platform it supports
+7. Approximate storage requirement
+8. How to include it in their CORE
+
+Add a prominent action:
+
+"GET RESOURCE"
+
+This should take the user to the legitimate/official source or acquisition location.
+
+Where appropriate, also provide:
+
+"ADD TO MY CORE"
+
+These are separate actions.
+
+GET RESOURCE = obtain the resource.
+
+ADD TO MY CORE = add the resource to the user's CORE configuration.
+
+Do NOT automatically download third-party resources.
+
+Do NOT host third-party resources.
+
+Do NOT scrape or mirror third-party websites.
+
+CORE should act as the discovery, curation, organization, and acquisition guidance layer.
+
+==================================================
+RESOURCE ACQUISITION TYPES
+==================================================
+
+Design the data model so resources can support different acquisition methods, including:
+
+- Direct Download
+- Official Website
+- Package/Repository
+- Offline Database
+- Offline Archive
+- Installer
+- Documentation Download
+- Manual Download
+- Local Model Download
+- Other
+
+The UI should display the acquisition method in human-readable language.
+
+==================================================
+INITIAL REAL RESOURCES
+==================================================
+
+Review the existing seed resources and add legitimate official source URLs and acquisition information where possible.
+
+Do not invent URLs.
+
+Do not mark a resource as verified unless its source and metadata have actually been reviewed.
+
+Use authoritative/official sources wherever available.
+
+==================================================
+RESOURCE DETAIL EXPERIENCE
+==================================================
+
+Improve the Resource Detail page so it feels like a CORE resource acquisition card.
+
+Suggested structure:
+
+RESOURCE NAME
+Category / Type
+
+Why keep this offline?
+
+[Description]
+
+OFFLINE CAPABILITY
+How the resource can be used without connectivity.
+
+RESOURCE DETAILS
+Platform
+Size
+Version
+License
+Source
+Last Verified
+
+ACQUIRE
+[GET RESOURCE]
+
+CORE
+[ADD TO MY CORE]
+
+Also provide clear instructions for obtaining the resource when a direct download is not available.
+
+==================================================
+CORE BUILDER
+==================================================
+
+When resources are added to a CORE, the Builder should retain their acquisition information.
+
+The Builder should eventually be able to show:
+
+RESOURCE
+SOURCE
+SIZE
+ACQUISITION METHOD
+
+Do not implement automated downloading yet.
+
+Do not implement USB deployment yet.
+
+==================================================
+ARCHITECTURE
+==================================================
+
+Keep acquisition information separate from the core Resource identity so the architecture can later support:
+
+- Multiple acquisition methods
+- Multiple platforms
+- Multiple versions
+- Alternative legitimate sources
+- Resource updates
+- Verification
+- Offline installation instructions
+
+Do not hard-code acquisition behavior into individual UI components.
+
+Create reusable data structures/components.
+
+==================================================
+IMPORTANT CORE PRINCIPLE
+==================================================
+
+CORE is not the content.
+
+CORE is the framework that lets users discover, curate, organize, acquire, maintain, and share the content that matters to them.
+
+The goal of this phase is:
+
+DISCOVER
+→ UNDERSTAND
+→ ACQUIRE
+→ ADD TO CORE
+→ BUILD
+
+Do not implement the next phase yet.
+
+After completing this phase, test the complete workflow using the existing seed resources.
+
+Commit the changes with:
+
+feat: add CORE resource acquisition layer
