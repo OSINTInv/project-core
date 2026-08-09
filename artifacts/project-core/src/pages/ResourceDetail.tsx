@@ -46,7 +46,7 @@ export default function ResourceDetail() {
           </div>
 
           <div className="border-t border-border pt-8">
-            <h2 className="text-sm font-mono font-bold uppercase tracking-widest text-muted-foreground mb-4">Why It's Useful</h2>
+            <h2 className="text-sm font-mono font-bold uppercase tracking-widest text-muted-foreground mb-4">Why take this offline?</h2>
             <div className="p-6 bg-primary/5 border border-primary/20 rounded-sm text-foreground leading-relaxed">
               {resource.whyUseful}
             </div>
@@ -54,7 +54,7 @@ export default function ResourceDetail() {
 
           {resource.longDescription && (
             <div className="border-t border-border pt-8">
-              <h2 className="text-sm font-mono font-bold uppercase tracking-widest text-muted-foreground mb-4">Detailed Specifications</h2>
+              <h2 className="text-sm font-mono font-bold uppercase tracking-widest text-muted-foreground mb-4">About this resource</h2>
               <div className="prose prose-invert max-w-none text-muted-foreground">
                 <p>{resource.longDescription}</p>
               </div>
@@ -127,7 +127,7 @@ export default function ResourceDetail() {
                 </Button>
               </a>
               <Button variant="outline" className="w-full font-mono text-xs">
-                <Download className="w-4 h-4 mr-2" /> ADD TO PROFILE
+                <Download className="w-4 h-4 mr-2" /> ADD TO MY CORE
               </Button>
               <Button variant="ghost" className="w-full font-mono text-xs text-muted-foreground">
                 <Share2 className="w-4 h-4 mr-2" /> SHARE LINK

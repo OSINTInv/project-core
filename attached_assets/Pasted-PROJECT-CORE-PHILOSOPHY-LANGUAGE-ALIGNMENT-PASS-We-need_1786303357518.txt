@@ -1,0 +1,486 @@
+PROJECT CORE — PHILOSOPHY & LANGUAGE ALIGNMENT PASS
+
+We need to perform a comprehensive content/messaging revision across the existing CORE application.
+
+IMPORTANT:
+Do NOT redesign the UI.
+Do NOT change the colour palette.
+Do NOT change the logo.
+Do NOT change the layout, cards, navigation, typography, spacing, icons, or visual language.
+
+The current visual design is approved.
+
+This task is specifically to revise the WORDING throughout the application so that every section reflects the actual philosophy, mission, terminology, and purpose of Project CORE.
+
+==================================================
+CORE IDENTITY
+==================================================
+
+PROJECT CORE
+
+C.O.R.E. = Custom Offline Resource Environment
+
+Positioning:
+"Your Personal Offline World Environment."
+
+Mission:
+"Preserve information. Keep the unconnected connected."
+
+North Star:
+"We believe useful information and capability shouldn't disappear when the connection does."
+
+Core promise:
+"No internet? No problem."
+
+==================================================
+CORE PHILOSOPHY
+==================================================
+
+CORE exists because connectivity is a privilege we do not control access to.
+
+Internet access can be unreliable, unavailable, restricted, interrupted, or destroyed.
+
+When the connection disappears, the information, knowledge, tools, and resources people depend on should not have to disappear with it.
+
+CORE allows people to build, curate, maintain, deploy, and share their own offline environments around their personal informational and capability needs.
+
+CORE is not a single predefined offline environment.
+
+CORE does not tell people what they need.
+
+CORE gives people the framework to decide what information and resources matter to them.
+
+The user remains in control.
+
+Your resources.
+Your hardware.
+Your configuration.
+Your CORE.
+
+==================================================
+PERSONAL STATE OF CAPABILITY
+==================================================
+
+Introduce and use this terminology where appropriate:
+
+PSC = Personal State of Capability
+
+A Personal State of Capability represents the information, knowledge, software, tools, and resources a person can access and use independently of an internet connection.
+
+CORE helps people build and maintain their Personal State of Capability.
+
+Core concept:
+
+"Connectivity gives you access. CORE gives you capability."
+
+Do not overuse PSC.
+Use it where it naturally explains the deeper purpose of CORE.
+
+==================================================
+CORE PRINCIPLES
+==================================================
+
+All application copy should be consistent with these principles:
+
+1. Information for All
+Information and knowledge should be accessible to everyone regardless of connectivity, location, circumstance, or technical ability.
+
+2. Offline First
+CORE environments must remain useful without an internet connection.
+
+3. User Owned
+Users control their environment, resources, configuration, and data.
+
+4. Build Your Own
+CORE does not prescribe one universal environment. Users build what they need.
+
+5. Open & Portable
+Favor open standards, interoperable formats, open-source software, and hardware independence wherever practical.
+
+6. Verifiable
+Resources should have identifiable sources, versions, metadata, and where practical, cryptographic verification.
+
+7. Resilient
+CORE should remain useful when individual resources, services, providers, or connections disappear.
+
+8. Community Built
+People should be able to share, fork, improve, and redistribute CORE configurations.
+
+9. Accessible
+CORE should be understandable and usable by people who are not technical experts.
+
+10. No Lock-In
+CORE should never become another dependency users cannot escape.
+
+==================================================
+CORE LIFECYCLE
+==================================================
+
+Use this exact lifecycle language:
+
+DEFINE
+"Define what you need when the connection isn't there."
+
+CURATE
+"Choose the information, knowledge, tools, and resources that matter to you."
+
+BUILD
+"Build your custom offline environment around your needs."
+
+DEPLOY
+"Take your CORE with you — on the device or hardware that works for you."
+
+MAINTAIN
+"Keep your information current. Update it whenever connectivity is available."
+
+SHARE
+"Share your CORE so others can discover, fork, and build on it."
+
+The lifecycle is:
+
+DEFINE → CURATE → BUILD → DEPLOY → MAINTAIN → SHARE
+
+==================================================
+IMPORTANT LANGUAGE CHANGE:
+RESOURCE / PACK / ATLAS COPY
+==================================================
+
+The current application contains language that makes CORE sound like an enterprise software deployment system or a disaster-preparedness command center.
+
+Remove that tone.
+
+CORE is broader.
+
+It is for ANYONE who relies on a connection to access information they need and wants that information available whether a connection exists or not.
+
+That includes:
+
+- Travellers
+- Students
+- Developers
+- Technicians
+- Field workers
+- Researchers
+- Educators
+- Remote workers
+- Outdoor enthusiasts
+- Preparedness users
+- Families
+- People living in areas with unreliable connectivity
+- Remote communities
+- Organizations
+- Humanitarian users
+
+Do NOT imply that CORE is primarily for disaster preparedness, military use, field operations, or emergency response.
+
+Those are use cases, not the definition of CORE.
+
+==================================================
+CORE ATLAS
+==================================================
+
+The Atlas is the discovery layer.
+
+Preferred language:
+
+"Discover the information, knowledge, software, tools, and resources you can take offline."
+
+or:
+
+"Explore resources to build your Personal Offline World Environment."
+
+Avoid language such as:
+
+"Top-rated tools validated for offline capability."
+
+Prefer:
+
+"Curated resources for building your offline environment."
+
+Do not make CORE sound like it determines what is "best" for everyone.
+
+The user decides what belongs in their CORE.
+
+==================================================
+CORE PACKS
+==================================================
+
+Packs are curated starting points, not mandatory configurations.
+
+Current examples may include:
+
+CORE AI
+CORE Field
+CORE Knowledge
+CORE Preparedness
+CORE Technician
+CORE Travel
+
+Keep these names if already implemented.
+
+However, rewrite their descriptions so they communicate:
+
+"This is a starting point you can customize."
+
+For example:
+
+CORE AI
+"Build an offline AI environment with local models, runtimes, documentation, and tools you can use without cloud connectivity."
+
+CORE Field
+"Curated technical references, documentation, tools, and resources for working where connectivity isn't guaranteed."
+
+CORE Knowledge
+"Build a portable library of reference material, encyclopedias, educational resources, and knowledge that travels with you."
+
+CORE Preparedness
+"Build an offline repository of emergency, repair, medical, navigation, communications, and resilience resources."
+
+CORE Technician
+"Technical documentation, diagnostic resources, utilities, manuals, and references for working without a connection."
+
+CORE Travel
+"Maps, language resources, reference material, travel information, and other resources you may want when connectivity isn't guaranteed."
+
+Do not describe Packs as the user's final CORE.
+
+They are starting points.
+
+==================================================
+CORE RESOURCES
+==================================================
+
+The current "Essential Resources" section should be reframed.
+
+Replace:
+
+"Essential Resources"
+
+with:
+
+"Explore the Atlas"
+
+or:
+
+"Resources for Your CORE"
+
+Preferred supporting text:
+
+"Discover information, knowledge, software, tools, and resources you can take offline."
+
+Avoid:
+
+"Top-rated tools"
+
+Avoid implying CORE has determined universal importance.
+
+A resource is valuable because it may be useful to a particular user's needs.
+
+==================================================
+RESOURCE CARD LANGUAGE
+==================================================
+
+Resource cards should communicate:
+
+- What the resource is
+- Why someone might want it offline
+- Category
+- Approximate size
+- Verification/source status where applicable
+
+Avoid overly technical descriptions unless the resource itself is technical.
+
+Descriptions should answer:
+
+"Why would I want this available when I don't have internet?"
+
+Examples:
+
+DevDocs.io Offline:
+"Offline developer documentation for programming languages, frameworks, and libraries — available when the connection isn't."
+
+FEMA Emergency Management Guide:
+"Emergency management reference material you can keep available when connectivity is unavailable."
+
+Khan Academy Offline:
+"Educational courses and learning material that can travel with you beyond the network."
+
+LibreOffice:
+"A full office suite for creating and editing documents, spreadsheets, and presentations without cloud connectivity."
+
+Llama 3.8B Model:
+"Run local AI capabilities without relying on cloud services or an internet connection."
+
+Meshastic Documentation:
+"Documentation for long-range offline communication and mesh networking."
+
+Ollama:
+"Run language models locally without relying on internet or cloud services."
+
+OpenStreetMap Offline:
+"Maps and geographic information you can access when connectivity isn't available."
+
+==================================================
+IMPORTANT: RESOURCE VERIFICATION
+==================================================
+
+Do not use "Verified" as a vague marketing badge.
+
+Where the current interface displays "Verified", it should eventually represent an actual verification state tied to resource metadata.
+
+For now, retain the visual treatment if already implemented, but structure the application so verification can later include:
+
+- Source
+- Version
+- Last reviewed
+- License
+- Checksum/hash where appropriate
+- Verification status
+
+Do not fabricate verification claims.
+
+==================================================
+STATISTICS
+==================================================
+
+Do not use meaningless or fabricated metrics such as:
+
+"Active Nodes"
+
+CORE is not a network infrastructure product.
+
+Use meaningful concepts such as:
+
+RESOURCES
+CURATED PACKS
+COMMUNITY CORES
+VERIFIED RESOURCES
+
+These should eventually be dynamically populated from the database.
+
+If demo data is currently being used, make it clearly seed/demo data internally and structure the application so real database values can replace it.
+
+==================================================
+TONE
+==================================================
+
+CORE should sound:
+
+- Capable
+- Intelligent
+- Independent
+- Resilient
+- Practical
+- Human
+- Accessible
+- Open
+- Purpose-driven
+
+Do NOT make CORE sound:
+
+- Militaristic
+- Paranoid
+- Apocalyptic
+- Prepper-only
+- Cyberpunk
+- Hacker-centric
+- Enterprise IT
+- Corporate SaaS
+- Fear-driven
+
+CORE is NOT anti-internet.
+
+CORE recognizes that the internet is incredibly useful while acknowledging that connectivity is not guaranteed.
+
+CORE exists to preserve capability beyond the connection.
+
+==================================================
+GLOBAL COPY RULE
+==================================================
+
+Review ALL existing visible copy across:
+
+- Homepage
+- Hero
+- Lifecycle
+- Atlas
+- Resource cards
+- Resource detail pages
+- Packs
+- Pack detail pages
+- Builder
+- Profiles
+- Community
+- Navigation
+- Buttons
+- Empty states
+- Tooltips
+- Status messages
+- Headings
+- Subheadings
+
+Replace any copy that conflicts with the CORE philosophy.
+
+Do not blindly replace terminology where the existing wording is already appropriate.
+
+Do not change functionality.
+
+Do not change layout.
+
+Do not change the approved visual identity.
+
+This is a CONTENT AND TERMINOLOGY ALIGNMENT PASS.
+
+==================================================
+CORE VOICE
+==================================================
+
+Write as if CORE is speaking directly to someone who has thought:
+
+"I wish I had saved that."
+
+"I need that information but I don't have a connection."
+
+"I don't want to carry a shelf full of manuals."
+
+"I want my information with me."
+
+"I want to be prepared without depending on the network."
+
+"I want to decide what information matters to me."
+
+CORE should make that person think:
+
+"Fuck. I need this."
+
+But the actual interface copy should remain polished, professional, and accessible.
+
+==================================================
+FINAL TEST
+==================================================
+
+After making the changes, review the entire application and ask:
+
+Does this feel like a platform that helps people preserve information and maintain capability beyond the internet?
+
+Does it communicate that users build their own environments?
+
+Does it communicate Information for All?
+
+Does it communicate User Ownership?
+
+Does it communicate that CORE is broader than preparedness?
+
+Does it communicate the CORE lifecycle?
+
+Does it communicate Personal State of Capability?
+
+Does it feel like something a student, traveller, technician, developer, field worker, family, remote community, or preparedness-minded person could all use?
+
+If any copy makes CORE feel narrower than this vision, revise it.
+
+DO NOT redesign the interface.
+
+DO NOT change the approved branding.
+
+Make this a comprehensive language and philosophy alignment pass across the existing application.

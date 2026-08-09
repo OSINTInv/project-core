@@ -64,7 +64,7 @@ export default function ProfileDetail() {
             <Trash2 className="w-4 h-4 mr-2" /> DELETE
           </Button>
           <Button variant="outline" className="font-mono text-xs">
-            <GitFork className="w-4 h-4 mr-2" /> FORK PROFILE
+            <GitFork className="w-4 h-4 mr-2" /> FORK THIS CORE
           </Button>
           <Button className="font-mono text-xs font-bold" onClick={downloadManifest} disabled={!manifest}>
             <Download className="w-4 h-4 mr-2" /> EXPORT MANIFEST
@@ -91,14 +91,14 @@ export default function ProfileDetail() {
           </div>
           
           <div className="bg-background border border-border p-6 rounded-sm">
-            <h3 className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Hardware Profile</h3>
+            <h3 className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Device & Storage</h3>
             <dl className="space-y-4 text-sm font-mono">
               <div className="flex justify-between items-center pb-3 border-b border-border/50">
-                <dt className="text-muted-foreground">Target Device</dt>
-                <dd className="font-bold text-right">{profile.targetDevice || 'Agnostic'}</dd>
+                <dt className="text-muted-foreground">Device</dt>
+                <dd className="font-bold text-right">{profile.targetDevice || 'Any'}</dd>
               </div>
               <div className="flex justify-between items-center pb-3 border-b border-border/50">
-                <dt className="text-muted-foreground">Capacity Req.</dt>
+                <dt className="text-muted-foreground">Storage</dt>
                 <dd className="font-bold text-right">{profile.storageCapacityGb ? `${profile.storageCapacityGb} GB` : 'Any'}</dd>
               </div>
               <div className="flex justify-between items-center">
@@ -145,7 +145,7 @@ export default function ProfileDetail() {
             ))}
             {profile.resources.length === 0 && (
               <div className="col-span-full py-12 text-center border border-dashed border-border rounded-sm">
-                <p className="text-muted-foreground font-mono">No specific resources attached to this profile.</p>
+                <p className="text-muted-foreground font-mono">No resources added to this CORE yet.</p>
               </div>
             )}
           </div>

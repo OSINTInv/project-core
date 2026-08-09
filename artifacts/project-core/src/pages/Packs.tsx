@@ -21,7 +21,7 @@ export default function Packs() {
           <Library className="w-8 h-8 text-primary" /> CORE Packs
         </h1>
         <p className="text-muted-foreground text-lg">
-          Curated collections of resources tailored for specific missions and scenarios.
+          Curated starting points for building your offline environment. Use them as a foundation, then make them your own.
         </p>
       </div>
 
@@ -61,7 +61,7 @@ export default function Packs() {
       )}
 
       <div>
-        <h2 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-widest mb-6">Standard Packs</h2>
+        <h2 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-widest mb-6">All Packs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {regularPacks.map(pack => (
             <Card key={pack.id} className="flex flex-col hover:border-primary/50 transition-colors">

@@ -16,15 +16,15 @@ export default function Profiles() {
       <div className="mb-8 border-b border-border pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
-            <Globe className="w-8 h-8 text-primary" /> Public Profiles
+            <Globe className="w-8 h-8 text-primary" /> Community COREs
           </h1>
           <p className="text-muted-foreground text-lg">
-            Browse all public offline environments created by the community.
+            Explore offline environments built and shared by people in the CORE community.
           </p>
         </div>
         <Link href="/builder">
           <Button className="font-mono font-bold tracking-wider uppercase text-xs">
-            Create Profile
+            Build Your CORE
           </Button>
         </Link>
       </div>
@@ -47,7 +47,7 @@ export default function Profiles() {
                 <p className="text-sm text-muted-foreground line-clamp-3">{profile.description}</p>
                 {profile.targetDevice && (
                   <div className="mt-4 pt-4 border-t border-border/50">
-                    <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">Target HW: </span>
+                    <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">Device: </span>
                     <span className="text-xs font-mono">{profile.targetDevice}</span>
                   </div>
                 )}

@@ -28,7 +28,7 @@ export default function Atlas() {
       <div className="mb-8 border-b border-border pb-8">
         <h1 className="text-4xl font-bold mb-2">Resource Atlas</h1>
         <p className="text-muted-foreground text-lg">
-          The global catalog of offline-capable software, datasets, and documentation.
+          Discover the information, knowledge, software, tools, and resources you can take offline.
         </p>
       </div>
 
@@ -64,10 +64,10 @@ export default function Atlas() {
             
             <div className="p-4 border border-border bg-card/50 rounded-sm">
               <h3 className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2 flex items-center gap-2">
-                <Server className="w-4 h-4" /> System Note
+                <Server className="w-4 h-4" /> About the Atlas
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Resources marked <strong className="text-[#22C55E]">VERIFIED</strong> have been tested for true air-gapped capability without phoning home.
+                Resources marked <strong className="text-[#22C55E]">VERIFIED</strong> have been reviewed for genuine offline capability, identifiable source, and license information.
               </p>
             </div>
           </div>

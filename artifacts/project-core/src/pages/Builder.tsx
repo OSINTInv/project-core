@@ -90,7 +90,7 @@ export default function Builder() {
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8 pb-8 border-b border-border">
         <h1 className="text-3xl font-bold mb-2">CORE Builder</h1>
-        <p className="text-muted-foreground">Configure and deploy your custom offline environment.</p>
+        <p className="text-muted-foreground">Build your Personal Offline World Environment. Your resources. Your hardware. Your configuration.</p>
         
         {/* Progress Bar */}
         <div className="flex gap-2 mt-8">
@@ -110,43 +110,44 @@ export default function Builder() {
         
         {step === 1 && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-xl font-bold font-mono border-b border-border pb-2 mb-6">01. MISSION PARAMETERS</h2>
+            <h2 className="text-xl font-bold font-mono border-b border-border pb-2 mb-6">01. YOUR CORE</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Profile Name</label>
-                <Input name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Operation MedKit" />
+                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">CORE Name</label>
+                <Input name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. My Travel CORE" />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Operator Name</label>
-                <Input name="authorName" value={formData.authorName} onChange={handleInputChange} placeholder="e.g. J. Doe" />
+                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Your Name</label>
+                <Input name="authorName" value={formData.authorName} onChange={handleInputChange} placeholder="e.g. J. Simmons" />
               </div>
               <div className="space-y-2 md:col-span-2">
-                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Mission Description</label>
-                <Textarea name="description" value={formData.description} onChange={handleInputChange} placeholder="Describe the purpose of this environment..." className="h-24" />
+                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">What's this CORE for?</label>
+                <Textarea name="description" value={formData.description} onChange={handleInputChange} placeholder="Describe what you want available when you don't have a connection..." className="h-24" />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Primary Purpose</label>
+                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Purpose</label>
                 <Select value={formData.purpose} onValueChange={(val) => setFormData(prev => ({...prev, purpose: val}))}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select purpose" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="field-ops">Field Operations</SelectItem>
-                    <SelectItem value="disaster-prep">Disaster Preparedness</SelectItem>
-                    <SelectItem value="research">Remote Research</SelectItem>
-                    <SelectItem value="development">Offline Development</SelectItem>
+                    <SelectItem value="travel">Travel</SelectItem>
                     <SelectItem value="education">Education / Learning</SelectItem>
+                    <SelectItem value="field-work">Field Work</SelectItem>
+                    <SelectItem value="development">Offline Development</SelectItem>
+                    <SelectItem value="preparedness">Preparedness</SelectItem>
+                    <SelectItem value="research">Research</SelectItem>
                     <SelectItem value="general">General Purpose</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Target Device</label>
-                <Input name="targetDevice" value={formData.targetDevice} onChange={handleInputChange} placeholder="e.g. Raspberry Pi 4, Rugged Laptop" />
+                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Device or Hardware</label>
+                <Input name="targetDevice" value={formData.targetDevice} onChange={handleInputChange} placeholder="e.g. Laptop, USB Drive, Raspberry Pi" />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Storage Capacity (GB)</label>
+                <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Storage Available (GB)</label>
                 <Input name="storageCapacityGb" type="number" value={formData.storageCapacityGb} onChange={handleInputChange} placeholder="Leave empty if unknown" />
               </div>
               <div className="space-y-2 flex items-end">
@@ -158,7 +159,7 @@ export default function Builder() {
                     onChange={(e) => setFormData(prev => ({...prev, isPublic: e.target.checked}))}
                     className="w-4 h-4 accent-primary"
                   />
-                  <label htmlFor="isPublic" className="text-sm font-mono cursor-pointer select-none">Make available in Community Atlas</label>
+                  <label htmlFor="isPublic" className="text-sm font-mono cursor-pointer select-none">Share with the community</label>
                 </div>
               </div>
             </div>
@@ -174,11 +175,11 @@ export default function Builder() {
         {step === 2 && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex justify-between items-end border-b border-border pb-2 mb-6">
-              <h2 className="text-xl font-bold font-mono">02. RESOURCE SELECTION</h2>
+              <h2 className="text-xl font-bold font-mono">02. CHOOSE YOUR RESOURCES</h2>
               <span className="font-mono text-xs text-primary">{selectedResources.size} Selected</span>
             </div>
             
-            <p className="text-sm text-muted-foreground mb-4">Select individual tools, datasets, and documentation needed for your environment.</p>
+            <p className="text-sm text-muted-foreground mb-4">Choose the information, knowledge, software, and tools you want available when you're offline.</p>
 
             <div className="h-[400px] overflow-y-auto pr-2 space-y-2">
               {resLoading ? (
@@ -221,11 +222,11 @@ export default function Builder() {
         {step === 3 && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex justify-between items-end border-b border-border pb-2 mb-6">
-              <h2 className="text-xl font-bold font-mono">03. PACK INCLUSION</h2>
+              <h2 className="text-xl font-bold font-mono">03. ADD A STARTING PACK</h2>
               <span className="font-mono text-xs text-primary">{selectedPacks.size} Selected</span>
             </div>
             
-            <p className="text-sm text-muted-foreground mb-4">Add curated collections of resources for specific needs.</p>
+            <p className="text-sm text-muted-foreground mb-4">Packs are curated starting points. Add one to give your CORE a foundation — then customise from there.</p>
 
             <div className="h-[400px] overflow-y-auto pr-2 space-y-3">
               {packsLoading ? (
@@ -272,14 +273,14 @@ export default function Builder() {
 
         {step === 4 && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-xl font-bold font-mono border-b border-border pb-2 mb-6">04. FINAL REVIEW</h2>
+            <h2 className="text-xl font-bold font-mono border-b border-border pb-2 mb-6">04. REVIEW YOUR CORE</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xs font-mono font-bold uppercase text-muted-foreground mb-2">Profile Identity</h3>
-                  <p className="text-lg font-bold">{formData.name || 'Unnamed CORE Profile'}</p>
-                  <p className="text-sm text-muted-foreground">by {formData.authorName || 'Anonymous Operator'}</p>
+                  <h3 className="text-xs font-mono font-bold uppercase text-muted-foreground mb-2">Your CORE</h3>
+                  <p className="text-lg font-bold">{formData.name || 'Unnamed CORE'}</p>
+                  <p className="text-sm text-muted-foreground">by {formData.authorName || 'Anonymous'}</p>
                 </div>
                 
                 <div>
@@ -294,7 +295,7 @@ export default function Builder() {
               
               <div className="bg-background border border-border p-6 rounded-sm space-y-4">
                 <h3 className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-2">
-                  <ShieldAlert className="w-4 h-4" /> System Projection
+                  <ShieldAlert className="w-4 h-4" /> Storage Estimate
                 </h3>
                 
                 <div className="flex justify-between items-center py-2 border-b border-border/50">
@@ -328,9 +329,9 @@ export default function Builder() {
                 className="font-mono font-bold tracking-wider relative overflow-hidden group"
               >
                 {createProfile.isPending ? (
-                  <>INITIALIZING... <div className="ml-2 w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" /></>
+                  <>SAVING... <div className="ml-2 w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" /></>
                 ) : (
-                  <>DEPLOY PROFILE <Cpu className="w-4 h-4 ml-2" /></>
+                  <>SAVE MY CORE <Cpu className="w-4 h-4 ml-2" /></>
                 )}
               </Button>
             </div>

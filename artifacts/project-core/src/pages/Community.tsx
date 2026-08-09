@@ -18,12 +18,12 @@ export default function Community() {
         <Users className="w-12 h-12 text-primary mx-auto mb-4" />
         <h1 className="text-4xl font-bold mb-4">CORE Community</h1>
         <p className="text-muted-foreground text-lg">
-          Discover and fork environment profiles shared by other operators, researchers, and builders.
+          Explore and fork offline environments shared by travellers, students, developers, field workers, and anyone building their own CORE.
         </p>
         <div className="mt-8">
           <Link href="/builder">
             <Button className="font-mono uppercase tracking-wider font-bold">
-              <Share2 className="w-4 h-4 mr-2" /> Share Your Profile
+              <Share2 className="w-4 h-4 mr-2" /> Share Your CORE
             </Button>
           </Link>
         </div>
@@ -31,8 +31,8 @@ export default function Community() {
 
       <div className="mb-16">
         <div className="flex justify-between items-end mb-6">
-          <h2 className="text-2xl font-bold">Featured Profiles</h2>
-          <span className="text-sm font-mono text-muted-foreground uppercase tracking-widest hidden sm:inline">Hand-picked setups</span>
+          <h2 className="text-2xl font-bold">Featured COREs</h2>
+          <span className="text-sm font-mono text-muted-foreground uppercase tracking-widest hidden sm:inline">Hand-picked environments</span>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -67,7 +67,7 @@ export default function Community() {
 
       <div>
         <div className="flex justify-between items-end mb-6">
-          <h2 className="text-2xl font-bold">Recent Deployments</h2>
+          <h2 className="text-2xl font-bold">Recently Shared</h2>
           <Link href="/profiles">
             <Button variant="link" className="font-mono text-xs text-muted-foreground hover:text-foreground">
               VIEW ALL <ArrowRight className="w-4 h-4 ml-1" />

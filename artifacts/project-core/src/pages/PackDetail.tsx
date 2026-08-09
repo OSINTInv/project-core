@@ -45,7 +45,7 @@ export default function PackDetail() {
           
           <div className="flex flex-wrap gap-6 items-center pt-8 border-t border-border/50">
             <Button size="lg" className="font-mono font-bold tracking-wider">
-              <PackagePlus className="w-4 h-4 mr-2" /> ADD PACK TO PROFILE
+              <PackagePlus className="w-4 h-4 mr-2" /> ADD TO MY CORE
             </Button>
             <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm font-mono">
               <div><span className="text-muted-foreground">Total Resources:</span> <strong className="text-foreground">{pack.resources.length}</strong></div>
@@ -56,8 +56,8 @@ export default function PackDetail() {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-2">Pack Contents</h2>
-        <p className="text-muted-foreground">All resources included in this collection.</p>
+        <h2 className="text-2xl font-bold mb-2">What's Included</h2>
+        <p className="text-muted-foreground">Resources in this starting point. Add this pack to your CORE, then build from here.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

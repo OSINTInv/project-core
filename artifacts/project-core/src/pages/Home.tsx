@@ -77,8 +77,8 @@ export default function Home() {
             {[
               { label: "Resources", value: stats?.totalResources || 0 },
               { label: "Curated Packs", value: stats?.totalPacks || 0 },
-              { label: "Community Profiles", value: stats?.totalProfiles || 0 },
-              { label: "Active Nodes", value: stats?.totalCommunityMembers || 0 },
+              { label: "Community COREs", value: stats?.totalProfiles || 0 },
+              { label: "Verified Resources", value: stats?.verifiedResources || 0 },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center justify-center text-center px-4">
                 <span className="text-3xl md:text-4xl font-mono font-bold text-foreground mb-2">
@@ -99,18 +99,18 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">The CORE Lifecycle</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              A systematic approach to offline resilience. From assessing needs to deploying environments.
+              Your information. Your resources. Your configuration. Your CORE.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { id: "01", title: "DEFINE", desc: "Identify your mission parameters, user needs, and storage constraints.", icon: TargetIcon },
-              { id: "02", title: "CURATE", desc: "Select reliable software, datasets, and documentation from the Atlas.", icon: Database },
-              { id: "03", title: "BUILD", desc: "Assemble resources into a cohesive, conflict-free Profile.", icon: Wrench },
-              { id: "04", title: "DEPLOY", desc: "Export manifest and download assets to target hardware.", icon: DownloadCloud },
-              { id: "05", title: "MAINTAIN", desc: "Sync updates periodically when connectivity is available.", icon: HardDrive },
-              { id: "06", title: "SHARE", desc: "Publish your customized CORE Profile for the community.", icon: Share2 },
+              { id: "01", title: "DEFINE", desc: "Define what you need when the connection isn't there.", icon: TargetIcon },
+              { id: "02", title: "CURATE", desc: "Choose the information, knowledge, tools, and resources that matter to you.", icon: Database },
+              { id: "03", title: "BUILD", desc: "Build your custom offline environment around your needs.", icon: Wrench },
+              { id: "04", title: "DEPLOY", desc: "Take your CORE with you — on the device or hardware that works for you.", icon: DownloadCloud },
+              { id: "05", title: "MAINTAIN", desc: "Keep your information current. Update it whenever connectivity is available.", icon: HardDrive },
+              { id: "06", title: "SHARE", desc: "Share your CORE so others can discover, fork, and build on it.", icon: Share2 },
             ].map((step, i) => (
               <div key={i} className="relative p-6 border border-border bg-card rounded-sm group hover:border-primary/50 transition-colors">
                 <div className="absolute top-0 right-0 p-4 font-mono text-4xl font-bold text-muted/30 group-hover:text-primary/10 transition-colors">
@@ -133,7 +133,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
               <h2 className="text-3xl font-bold mb-2">Featured Packs</h2>
-              <p className="text-muted-foreground">Pre-configured resource bundles for common scenarios.</p>
+              <p className="text-muted-foreground">Curated starting points. Customise them to fit your needs.</p>
             </div>
             <Link href="/packs">
               <Button variant="outline" className="font-mono text-xs">
@@ -159,7 +159,7 @@ export default function Home() {
                 <div className="p-6 pt-0 mt-auto border-t border-border mt-4">
                   <Link href={`/packs/${pack.id}`}>
                     <Button variant="ghost" className="w-full justify-between font-mono text-xs mt-4">
-                      INSPECT PACK <ArrowRight className="w-4 h-4" />
+                      EXPLORE PACK <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
                 </div>
@@ -174,8 +174,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <h2 className="text-3xl font-bold mb-2">Essential Resources</h2>
-              <p className="text-muted-foreground">Top-rated tools validated for offline capability.</p>
+              <h2 className="text-3xl font-bold mb-2">Resources for Your CORE</h2>
+              <p className="text-muted-foreground">Discover information, knowledge, software, tools, and resources you can take offline.</p>
             </div>
             <Link href="/atlas">
               <Button variant="outline" className="font-mono text-xs">
@@ -209,13 +209,13 @@ export default function Home() {
       <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/5" />
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Initialize Your Environment</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Build Your CORE</h2>
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Use the Builder tool to configure your hardware constraints, select necessary tools, and generate a reproducible manifest.
+            Connectivity gives you access. CORE gives you capability. Choose your resources, define your environment, and take it with you — wherever you go.
           </p>
           <Link href="/builder">
             <Button size="lg" className="font-mono text-sm font-bold uppercase tracking-wider h-14 px-12">
-              LAUNCH BUILDER <ArrowRight className="w-5 h-5 ml-2" />
+              START BUILDING <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
         </div>
